@@ -102,6 +102,7 @@ li a {
     left: 50%;
     top: 30px; /* You can change this value (e.g., 2rem, 5%) */
     transform: translateX(-50%); /* We only center it horizontally now */
+    size
 
 }
 
@@ -450,4 +451,36 @@ nav {
 .Active {
     transition: 2s;
     margin-top: 1px;
+}
+.weather-widget {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px;
+}
+
+#location {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+}
+
+#temperature {
+    font-size: 4rem;
+    font-weight: 700;
+    color: #007bff;
+    margin: 1rem 0;
+}
+
+#description {
+    font-size: 1.2rem;
+    color: #555;
+    text-transform: capitalize;
+}
+
+#error-message {
+    color: #d9534f;
+    margin-top: 1rem;
 }

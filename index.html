@@ -12,6 +12,7 @@
     <meta name="keyowrds" content="html, navigation bar, navigation, bar, javascript, content">
 </head>
 <body>
+<p>
 <img src="ph-04.png">
 <div class="html-container">
     <div class="html-section">
@@ -19,10 +20,10 @@
             <div class="navigation">
                 <nav>
                     <ul class="nav-type">
-                        <li><a href="https://codepen.io/EneergeticTomy/" target="_blank" class="active">Home</a></li>
-                        <li><a href="https://codepen.io/TomikaBoy/full/LqMpaE" target="_blank" class="active1">About</a></li>
-                        <li><a href="https://codepen.io/" target="_blank" class="active2">Contact</a></li>
-                        <li><a href="https://w3schools.com/" target="_blank" class="active3">Support</a></li>
+                        <li><a href="index.html" target="_blank" class="active">Map</a></li>
+                        <li><a href="dashboard.html" target="_blank" class="active1">Dashboard</a></li>
+                        <li><a href="report.html" target="_blank" class="active2">Forms</a></li>
+                        <li><a href="https://w3schools.com/" target="_blank" class="active3">Education</a></li>
 
                     </ul>
                 </nav>
@@ -75,6 +76,12 @@
     <div class="drop3">Javascript</div>
     <div class="drop4">Sass</div>
 </div>
+<div class="weather-widget">
+    <div id="location">Loading...</div>
+    <div id="temperature">--°</div>
+    <div id="description">--</div>
+    <div id="error-message"></div>
+</div>
     <script>
         // [12.8797, 121.7740] is the center of the Philippines
     var map = L.map('map').setView([12.8797, 121.7740], 6);
@@ -97,7 +104,94 @@
                 });
             });
     </script>
+<script>
+    window.addEventListener('load', () => {
 
+    // --- 1. DEFINE YOUR API KEY ---
+    // (Replace with your actual key from OpenWeatherMap)
+    const apiKey = "a0dc93a97e3b22dc786d4b9d26593693";
+
+    // --- 2. GET REFERENCES TO HTML ELEMENTS ---
+    const locationEl = document.getElementById('location');
+    const temperatureEl = document.getElementById('temperature');
+    const descriptionEl = document.getElementById('description');
+    const errorEl = document.getElementById('error-message');
+
+    // --- 3. DEFINE API SUCCESS AND ERROR FUNCTIONS ---
+
+    /**
+     * Success callback for Geolocation API.
+     * This function is called when the user allows location access.
+     */
+    const handleSuccess = (position) => {
+        const { latitude, longitude } = position.coords;
+
+        // Construct the API URL with user's coordinates
+        // We add 'units=metric' to get temperature in Celsius
+        const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+
+        // Fetch weather data from the API
+        fetch(apiUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Update the HTML with the weather data
+                locationEl.textContent = data.name; // e.g., "Manila"
+                temperatureEl.textContent = `${Math.round(data.main.temp)}°C`;
+                descriptionEl.textContent = data.weather[0].description; // e.g., "broken clouds"
+                errorEl.textContent = ''; // Clear any previous errors
+            })
+            .catch(error => {
+                console.error("Error fetching weather data:", error);
+                handleError({ message: "Could not fetch weather data." });
+            });
+    };
+
+    /**
+     * Error callback for Geolocation API.
+     * This function is called when the user denies location access
+     * or if the browser fails to get the location.
+     */
+    const handleError = (error) => {
+        console.error("Geolocation error:", error);
+        locationEl.textContent = "Location Error";
+        temperatureEl.textContent = "--°";
+        descriptionEl.textContent = "";
+
+        // Display a user-friendly error message
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+                errorEl.textContent = "You denied the request for Geolocation.";
+                break;
+            case error.POSITION_UNAVAILABLE:
+                errorEl.textContent = "Location information is unavailable.";
+                break;
+            case error.TIMEOUT:
+                errorEl.textContent = "The request to get user location timed out.";
+                break;
+            default:
+                errorEl.textContent = error.message || "An unknown error occurred.";
+        }
+    };
+
+    // --- 4. REQUEST THE USER'S LOCATION ---
+
+    // Check if Geolocation is supported by the browser
+    if (navigator.geolocation) {
+        // If supported, ask for the user's current position
+        // It will call handleSuccess() on success or handleError() on failure
+        navigator.geolocation.getCurrentPosition(handleSuccess, handleError);
+    } else {
+        // If not supported, display an error
+        errorEl.textContent = "Geolocation is not supported by your browser.";
+        locationEl.textContent = "Not Supported";
+    }
+});
+</script>
 
 
 

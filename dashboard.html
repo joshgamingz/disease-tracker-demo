@@ -1,0 +1,43 @@
+<html>
+<head>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<canvas id="myChart"></canvas>
+<h1>chart</h1>
+<script>
+    // Ask Member 2 for this URL
+    fetch('http://localhost:3000/get-cases')
+        .then(response => response.json())
+        .then(cases => {
+            // --- This part adds up the totals ---
+            let totals = { "Dengue": 0, "Leptospirosis": 0 };
+            cases.forEach(c => {
+                if (c.disease === "Dengue") {
+                    totals.Dengue += c.cases;
+                } else if (c.disease === "Leptospirosis") {
+                    totals.Leptospirosis += c.cases;
+                }
+            });
+            // --- ---
+
+            // This part builds the chart
+            const ctx = document.getElementById('myChart');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Dengue', 'Leptospirosis'],
+                    datasets: [{
+                        label: '# of Total Cases',
+                        data: [totals.Dengue, totals.Leptospirosis],
+                        backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)'],
+                        borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
+                        borderWidth: 1
+                    }]
+                }
+            });
+        });
+</script>
+</body>
+</html>
