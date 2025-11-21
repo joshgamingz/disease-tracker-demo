@@ -11,15 +11,14 @@
             margin: 0;
         }
 
-        /* --- YOUR ORIGINAL NAVBAR & ANIMATION CSS --- */
-
+       
         img {
             height: 650px;
             width: 25%;
             margin-left: 700px;
             margin-top: 120px;
-
         }
+
         body {
             background-color: #003f86;
             margin: 0;
@@ -29,7 +28,6 @@
             background-size: cover;
             background-repeat: no-repeat;
             opacity: 1;
-            /* CHANGED: from hidden to auto so you can scroll to see the text! */
             overflow-y: auto;
             transition: 3s;
         }
@@ -39,7 +37,6 @@
             display: flex;
             padding: 18px 0;
             background-size: 400% 400%;
-            /* YOUR YELLOW GRADIENT */
             background-image: linear-gradient(-45deg, #ffeb3b, #ffd700, #fbc02d, #ffc107);
             animation: 12s myGradient infinite;
             border-radius: 40px;
@@ -76,7 +73,7 @@
             left:50.4%;
             top: 30px;
             transform: translateX(-50%);
-            z-index: 1000; /* Keeps nav on top of text */
+            z-index: 1000;
         }
 
         .fa-search:hover {
@@ -86,7 +83,6 @@
             transition: 2s;
         }
 
-        /* Hover effects for active links */
         .active:hover, .active1:hover, .active2:hover, .active3:hover {
             color: #fff;
             animation: 1.5s myFlash linear infinite;
@@ -94,9 +90,8 @@
             transition: 2s;
         }
 
-        /* Special hover for active3 to move it up slightly */
         .active3:hover {
-            margin-top: -10px; /* Adjusted from -100px to prevent breaking layout */
+            margin-top: -10px;
         }
 
         @keyframes myFlash {
@@ -159,7 +154,6 @@
             100% { opacity: 1; }
         }
 
-        /* Responsive */
         @media(max-width: 767px) {
             .flash-GIF { display: none; }
             .line-w5 { display: none; }
@@ -200,7 +194,7 @@
             letter-spacing: 25px;
             font-size: 50px;
             font-family: verdana;
-            z-index: -1; /* Push behind content */
+            z-index: -1;
         }
 
         .chinese-text { color: #ed4278; text-shadow: 2px 2px 18px #ff3678; }
@@ -219,11 +213,10 @@
             top: 25%;
         }
 
-        /* Dropdown CSS - Kept exactly as yours */
         .dropdown {
             background: red;
             width: 150px;
-            height: 200px; /* Kept height small as per your code */
+            height: 200px;
             color: #fff;
             font-family: verdana;
             padding: 20px 30px;
@@ -257,50 +250,179 @@
             margin-top: -5px;
         }
 
-        /* --- CONTENT STYLING (Added to make text visible) --- */
+        /* --- NEW IMPROVED CONTENT STYLING --- */
 
-        /* New container to push text below the nav bar */
+        /* Main Container */
         .container-view {
-            margin-top: 200px; /* Pushes content down */
+            margin-top: 180px; /* Pushes content below navbar */
             padding: 20px 10%;
             position: relative;
-            z-index: 10; /* Brings text in front of background elements */
-        }
-
-        header {
+            z-index: 10;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
-            padding: 20px 0;
-            color: white; /* Made white so it is visible on blue background */
         }
 
-        header h1 { margin-bottom: 10px; }
-
-        .weather-section {
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
+        /* Headers */
+        h1.main-title {
+            font-size: 4rem;
             margin-bottom: 20px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
         }
 
-        h2 { color: #2f4f6f; }
-        ul.tips-list { margin: 10px 0 20px 20px; list-style-type: disc; display: block; background: none; box-shadow: none; animation: none; } /* Reset ul for content */
+        h2.section-title {
+            font-size: 2.5rem;
+            margin-top: 60px;
+            margin-bottom: 30px;
+            color: #ffc107; /* Matches navbar yellow */
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
 
-        .card {
+        p.intro-text {
+            font-size: 1.2rem;
+            max-width: 800px;
+            line-height: 1.6;
+            margin: 20px auto;
+        }
+
+        /* Override the global img style for content images to fix layout */
+        .container-view img {
+            margin: 0 !important; /* Override the 700px margin */
+            height: auto !important;
+            width: auto !important;
+            max-width: 100%;
+            display: block;
+        }
+
+        /* Hero Image */
+        .Homepic {
+            width: 100% !important;
+            max-width: 900px !important;
+            height: auto !important;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            margin-bottom: 30px !important;
+        }
+
+        /* SDG Section (Grid/Flex Layout) */
+        .sdg-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 40px;
+            width: 100%;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .sdg-item {
+            flex: 1;
+            min-width: 300px;
+            max-width: 450px;
+            background: rgba(255, 255, 255, 0.1); /* Glass effect */
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .sdg-item:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .sdg-item img {
+            width: 150px !important;
+            height: 150px !important;
+            object-fit: contain;
+            margin-bottom: 20px !important;
+            border-radius:15px;
+        }
+
+        .sdg-item p {
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        /* Vision & Mission Section */
+        .vm-container {
+            display: flex;
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+        }
+
+        .vm-box {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            color: #003f86; /* Dark blue text */
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            text-align: left;
+        }
+
+        .vm-box h3 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            border-bottom: 4px solid #ffc107;
+            display: inline-block;
+        }
+
+        /* Input Section */
+        .input-section {
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 100px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            border-radius: 15px;
+        }
+
+        .input-section label {
+            display: block;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .input-section textarea {
+            width: 100%;
+            height: 150px;
             padding: 15px;
-            background: #f9fbfe;
-            border-left: 4px solid #4a90e2;
-            margin-bottom: 10px;
-            border-radius: 6px;
+            border-radius: 10px;
+            border: none;
+            font-family: sans-serif;
+            font-size: 1rem;
+            resize: vertical;
         }
 
-        .symptoms { font-style: italic; color: #555; }
+        .input-section button {
+            margin-top: 15px;
+            padding: 10px 30px;
+            background-color: #ffc107;
+            color: #003f86;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
 
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            color: #ddd;
-            padding-bottom: 20px;
+        .input-section button:hover {
+            background-color: #fff;
         }
 
     </style>
@@ -359,118 +481,50 @@
     </div>
 </template>
 
-<div class="dropdown" id="anotherFunction">
-    <div class="drop1">HTML</div>
-    <div class="drop2">CSS</div>
-    <div class="drop3">Javascript</div>
-    <div class="drop4">Sass</div>
-</div>
+
 <div class="container-view">
-    <header>
-        <h1>Weather & Diseases Education Page</h1>
-        <p>Learn how different weather conditions can affect your health, and how to stay safe.</p>
-    </header>
 
-    <section class="weather-section">
-        <h2>🔥 Hot Weather (Around 30°C - 40°C)</h2>
-        <div class="card">
-            <h3>1. Heat Stroke</h3>
-            <p class="symptoms">Symptoms: High fever, confusion, dizziness, rapid heartbeat.</p>
-            <p><strong>Tips:</strong> Stay hydrated, avoid staying under direct sunlight for long, wear light clothes.</p>
-            <p><strong>First Aid:</strong> Move the person to a cooler place, apply cold compress, give water if conscious, seek medical help immediately.</p>
+    <h1 class="main-title">About Us</h1>
+    <img class="Homepic" src="flood.jpg" alt="Flood scene">
+
+    <p class="intro-text">
+        We are students from <strong>Pamantasan ng Lungsod ng Maynila</strong> with a goal of preventing the rise of weather-related illness.
+        Climate change has affected our country's climate; we should learn to combat this impact on us.
+    </p>
+
+    <h2 class="section-title">Our Goals</h2>
+    <div class="sdg-container">
+        <div class="sdg-item">
+            <img src="climate action.png" alt="Climate Action Logo">
+            <p><strong>Climate Action:</strong> Taking urgent action to combat climate change and its impacts by raising awareness and building resilience in our community.</p>
         </div>
 
-        <div class="card">
-            <h3>2. Dehydration</h3>
-            <p class="symptoms">Symptoms: Dry mouth, headache, dark urine, dizziness.</p>
-            <p><strong>Tips:</strong> Drink plenty of water, avoid too much physical activity outdoors during peak heat.</p>
-            <p><strong>First Aid:</strong> Let the person rest, give water or electrolyte drink.</p>
+        <div class="sdg-item">
+            <img src="Goodhealth and wellbeing.png" alt="Good Health Logo">
+            <p><strong>Good Health and Well-being:</strong> Our goal is to promote good health and well-being by helping people be aware of illnesses in their community and how to stay safe.</p>
         </div>
+    </div>
 
-        <div class="card">
-            <h3>3. Skin Rashes / Prickly Heat</h3>
-            <p class="symptoms">Symptoms: Red itchy bumps, stinging sensation.</p>
-            <p><strong>Tips:</strong> Take cool showers, wear loose clothing.</p>
-            <p><strong>First Aid:</strong> Apply cool compress and soothing lotion.</p>
+    <h2 class="section-title">Our Direction</h2>
+    <div class="vm-container">
+        <div class="vm-box">
+            <h3>Vision</h3>
+            <p>To envision a resilient community in Manila where every citizen is equipped with the knowledge and tools to proactively protect themselves against weather-triggered diseases, ensuring a healthier future despite a changing climate.</p>
         </div>
-    </section>
-
-    <section class="weather-section">
-        <h2>🌧 Rainy Weather (Around 24°C - 30°C)</h2>
-        <div class="card">
-            <h3>1. Dengue Fever</h3>
-            <p class="symptoms">Symptoms: High fever, severe headache, joint pain, rashes.</p>
-            <p><strong>Tips:</strong> Avoid stagnant water, use mosquito repellents.</p>
-            <p><strong>First Aid:</strong> Give fluids, rest, and seek medical attention.</p>
+        <div class="vm-box">
+            <h3>Mission</h3>
+            <p>To provide accessible, real-time information and educational resources regarding weather-related health risks. We strive to bridge the gap between data and public safety, empowering PLM students and locals to make informed health decisions.</p>
         </div>
+    </div>
 
-        <div class="card">
-            <h3>2. Leptospirosis</h3>
-            <p class="symptoms">Symptoms: Fever, muscle pain, headache, yellow skin.</p>
-            <p><strong>Tips:</strong> Avoid walking in flood water, wear boots if necessary.</p>
-            <p><strong>First Aid:</strong> Wash exposed skin with soap, seek medical treatment quickly.</p>
-        </div>
+    <div class="input-section">
+        <label for="user-feedback">Share your thoughts or reports:</label>
+        <textarea id="user-feedback" placeholder="Type your message here..."></textarea>
+        <button type="button">Submit</button>
+    </div>
 
-        <div class="card">
-            <h3>3. Colds & Flu</h3>
-            <p class="symptoms">Symptoms: Runny nose, fever, cough, body aches.</p>
-            <p><strong>Tips:</strong> Strengthen your immune system, avoid getting soaked in the rain.</p>
-            <p><strong>First Aid:</strong> Rest, warm fluids, paracetamol for fever.</p>
-        </div>
-    </section>
-
-    <section class="weather-section">
-        <h2>❄ Cold Weather (Around 18°C - 24°C)</h2>
-        <div class="card">
-            <h3>1. Hypothermia</h3>
-            <p class="symptoms">Symptoms: Shivering, slurred speech, weak pulse.</p>
-            <p><strong>Tips:</strong> Wear warm clothes, avoid staying outside too long.</p>
-            <p><strong>First Aid:</strong> Move to a warm place, wrap in blankets, give warm drinks.</p>
-        </div>
-
-        <div class="card">
-            <h3>2. Asthma Attacks</h3>
-            <p class="symptoms">Symptoms: Difficulty breathing, coughing, wheezing.</p>
-            <p><strong>Tips:</strong> Avoid cold air exposure, wear masks or scarves.</p>
-            <p><strong>First Aid:</strong> Use inhaler and stay calm.</p>
-        </div>
-
-        <div class="card">
-            <h3>3. Pneumonia</h3>
-            <p class="symptoms">Symptoms: Cough with phlegm, fever, chills, chest pain.</p>
-            <p><strong>Tips:</strong> Keep warm, stay dry, boost immune system.</p>
-            <p><strong>First Aid:</strong> Seek medical care; rest and fluids.</p>
-        </div>
-    </section>
-
-    <section class="weather-section">
-        <h2>💧 Humid Weather (Above 70% Humidity)</h2>
-        <div class="card">
-            <h3>1. Fungal Skin Infections</h3>
-            <p class="symptoms">Symptoms: Itchy patches, redness, peeling skin.</p>
-            <p><strong>Tips:</strong> Keep skin dry, avoid tight clothing.</p>
-            <p><strong>First Aid:</strong> Use antifungal creams.</p>
-        </div>
-
-        <div class="card">
-            <h3>2. Heat Exhaustion</h3>
-            <p class="symptoms">Symptoms: Heavy sweating, dizziness, nausea.</p>
-            <p><strong>Tips:</strong> Stay hydrated, avoid physical exertion.</p>
-            <p><strong>First Aid:</strong> Move to a cool place, drink water.</p>
-        </div>
-
-        <div class="card">
-            <h3>3. Respiratory Problems</h3>
-            <p class="symptoms">Symptoms: Difficulty breathing, cough, wheezing.</p>
-            <p><strong>Tips:</strong> Keep indoor air clean, avoid pollution.</p>
-            <p><strong>First Aid:</strong> Rest, inhale steam, consult a doctor.</p>
-        </div>
-    </section>
-
-    <footer>
-        <p>© 2025 Weather & Health Education</p>
-    </footer>
 </div>
 
 </body>
+
 </html>
