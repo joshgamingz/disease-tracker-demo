@@ -527,323 +527,208 @@ nav {
     text-transform: capitalize;
 }
 /* 1. The Container */
-.map-container {
-    position: relative; /* Keeps the pin inside the box */
-    display: inline-block;
-    width: 500px; /* Adjust to your preferred map size */
-    left: 13%;
-    top: -3%;
-    transform: scale(0.85);
+/* --- 1. The Main Map Wrapper --- */
+/* This holds everything together. It scales based on screen width. */
+/* --- 1. The Main Map Wrapper --- */
+/* --- The Container --- */
+#map-container-responsive {
+    width: 78%;
+    max-width: 1211px;
+    margin: 0 auto;
+    margin-top: 5%;
+    overflow: hidden;
+    position: relative;
+    pointer-events: none;
 
 }
 
-/* 2. The Map Image */
-.qcd5 {
-    width: 100%;
-    height: auto;
+/* --- The Fixed Canvas --- */
+/* Find your existing #map-canvas and UPDATE it */
+#map-canvas {
+    width: 1300px;
+    height: 900px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: 0 0; /* IMPORTANT: This keeps the math simple */
+    pointer-events: auto;
+    /* --- NEW CURSOR STYLES --- */
+    cursor: grab; /* Shows a hand */
+    transition: transform 0.1s ease-out; /* Makes dragging smooth */
+    user-select: none;          /* Standard: Stops text selection */
+    -webkit-user-select: none;  /* Safari/Chrome support */
+    -moz-user-select: none;     /* Firefox support */
+}
+
+/* When clicking/dragging */
+#map-canvas:active {
+    cursor: grabbing; /* Shows a closed hand */
+}
+
+/* --- District Boxes --- */
+.district-box {
+    position: absolute;
+    z-index: auto;
+    -webkit-user-drag: none;
+}
+
+/* --- District Images --- */
+.district-box img {
+    width: 100%;        /* Fills the width of the box */
+
+    /* ADD THIS LINE: */
+    height: auto;       /* This overrides the "650px" rule and fixes the aspect ratio */
+
     display: block;
-    transition: transform 0.5s ease; /* Smooth zoom */
+    pointer-events: none;
+    transition: transform 0.4s ease, filter 0.4s ease;
 }
 
-/* 3. The Pin (Looks like a Location Marker) */
-.pin {
+/* --- The Pins --- */
+.map-pin {
     position: absolute;
-
-    /* POSITION: Change these numbers to move the pin! */
-    top: 50%;
-    left: 200%;
-
-    /* Shape Design */
-    width: 30px;
-    height: 30px;
-    background-color: #ff3333; /* Red color */
+    width: 51px;
+    height: 51px;
+    background-color: #ff3333;
     border: 2px solid white;
-    border-radius: 50% 50% 50% 0; /* Makes the teardrop shape */
-    transform: rotate(-45deg); /* Points it downward */
-
-    z-index: 10; /* Sits on top */
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    z-index: 100; /* Pins always on top */
     cursor: pointer;
-    box-shadow: 5px 5px 10px rgba(0,0,0,0.3); /* Shadow */
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+    transition: 0.3s;
 }
 
-/* Optional: Make the pin bounce slightly so people notice it */
-.pin:after {
-    content: '';
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background: white;
-    border-radius: 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* White dot in center */
-}
+/* --- THE ANIMATION LOGIC --- */
 
-/* 4. The Interaction */
-/* When hovering the PIN, zoom the MAP */
-.pin:hover ~ .qcd5 {
-    transform: scale(1.1);
-}
-
-/* Make the pin jump up when hovered */
-.pin:hover {
-    transform: rotate(-45deg) translate(0, -10px);
+/* 1. Animate Pin on Hover */
+.map-pin:hover {
     background-color: #ff0000;
-}
-/*DISTRICT 6 CODE
-
- */
-.map2-container {
-    position: relative; /* Keeps the pin inside the box */
-    display: inline-block;
-    width: 1225px; /* Adjust to your preferred map size */
-    left: -19.1%;
-    top: 15.38%;
-    transform: scale(0.85);
+    transform: rotate(-45deg) translate(0, -10px) scale(1.1);
+    z-index: 200; /* Ensure active pin is very top */
 }
 
-/* 2. The Map Image */
-.qcd6 {
-    po
-    width: 100%;
-    height: 30%;
-    display: block ;
-    transition: transform 0.5s ease; /* Smooth zoom */
-    top: 80%;
-    left: 20%;
+/* 2. Animate Map Image ONLY when Pin is Hovered */
+/* The '+' sign means: "Select the image that comes right after the hovered pin" */
+.map-pin:hover + img {
+    transform: scale(1.05); /* Zoom effect */
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3)); /* Pop-out shadow */
+    z-index: 50; /* Bring image slightly up so it doesn't get covered */
 }
 
-/* 3. The Pin (Looks like a Location Marker) */
-.D6pin {
-    position: absolute;
+/* --- MANUAL POSITIONING (Quezon City Layout Estimation) --- */
 
-    /* POSITION: Change these numbers to move the pin! */
-    top:50%;
-    left: 70%;
-
-    /* Shape Design */
-    width: 30px;
-    height: 30px;
-    background-color: #ff3333; /* Red color */
-    border: 2px solid white;
-    border-radius: 50% 50% 50% 0; /* Makes the teardrop shape */
-    transform: rotate(-45deg); /* Points it downward */
-
-    z-index: 10; /* Sits on top */
-    cursor: pointer;
-    box-shadow: 5px 5px 10px rgba(0,0,0,0.3); /* Shadow */
+/* District 5: Novaliches (Top Center) */
+#d5 {
+    width: 881px;   /* Large area at the top */
+    height: 57%;
+    top: -9%;
+    left: 3%;
+    transform: scale(.5);
 }
+#d5 .map-pin { top: 84%; left: 115%; }
 
-/* Optional: Make the pin bounce slightly so people notice it */
-.D6pin:after {
-    content: '';
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background: white;
-    border-radius: 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* White dot in center */
+
+/* District 6: Tandang Sora / Balintawak (Middle Left) */
+/* Sits below D5 */
+#d6 {
+    width: 40.6%;
+    height: 29.72%;
+    top: 26.1%;     /* Moved down to sit under D5 */
+    left: 5.45%;
+    transform: scale(.5);
 }
+#d6 .map-pin { top: 85%; left: 186%; }
 
-/* 4. The Interaction */
-/* When hovering the PIN, zoom the MAP */
-.D6pin:hover ~ .qcd6 {
-    transform: scale(1.1);
+
+/* District 1: La Loma / SFDM (Bottom West) */
+/* The "tail" on the left */
+#d1 {
+    width: 34.6%;
+    height: 27.72%;
+    top: 37.6%;
+    left: 5.2%;
+    transform: scale(.5);
 }
+#d1 .map-pin { top: 84%; left: 213%; }
 
-/* Make the pin jump up when hovered */
-.D6pin:hover {
-    transform: rotate(-45deg) translate(0, -10px);
-    background-color: #ff0000;
+
+/* District 4: Cubao / Diliman (Bottom Center) */
+/* Tucked between D1 and D3 */
+#d4 {
+    width: 46.6%;
+    height: 41.72%;
+    top: 39.4%;
+    left: 4.1%;
+    transform: scale(.5);
 }
-.map3-container {
-    position: relative; /* Keeps the pin inside the box */
-    display: inline-block;
-    width: 261px; /* Adjust to your preferred map size */
-    height: auto;
-    left: 9.8%;
-    top: -43.4%;
-    transform: scale(0.85);
+#d4 .map-pin { top: 60%; left: 171%; }
+
+
+/* District 3: Project 4 / Loyola (Bottom East) */
+/* The rightmost wing */
+#d3 {
+    width: 32.4%;
+    height: 33.72%;
+    top: 36.8%;
+    left: 19.7%;
+    transform: scale(.5);
 }
+#d3 .map-pin { top: 135%; left: 191%; }
 
-/* 2. The Map Image */
-.qcd1 {
-    width: 100%;
-    height: auto;
-    display: block;
-    transition: transform 0.5s ease; /* Smooth zoom */
+#d2 {
+    width: 31.4%;
+    height: 29.72%;
+    top: 13.6%;
+    left: 26.2%;
+    transform: scale(.5);
 }
-
-/* 3. The Pin (Looks like a Location Marker) */
-.D1pin {
-    position: absolute;
-
-    /* POSITION: Change these numbers to move the pin! */
-    top: 77%;
-    left: 281%;
-
-    /* Shape Design */
-    width: 30px;
-    height: 30px;
-    background-color: #ff3333; /* Red color */
-    border: 2px solid white;
-    border-radius: 50% 50% 50% 0; /* Makes the teardrop shape */
-    transform: rotate(-45deg); /* Points it downward */
-
-    z-index: 10; /* Sits on top */
-    cursor: pointer;
-    box-shadow: 5px 5px 10px rgba(0,0,0,0.3); /* Shadow */
+#d2 .map-pin { top: 135%; left: 211%; }
+#mnld3 {
+    width: 65.4%;
+    height: 29.72%;
+    top: 242.1%;
+    left: -187.3%;
+    transform: scale(1);
 }
-
-/* Optional: Make the pin bounce slightly so people notice it */
-.D1pin:after {
-    content: '';
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background: white;
-    border-radius: 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* White dot in center */
+#mnld3 .map-pin { top: 271%; left: 327%; }
+#mnld4 {
+    width: 65.4%;
+    height: 29.72%;
+    top: 266.1%;
+    left: -141.3%;
+    transform: scale(1);
 }
-
-/* 4. The Interaction */
-/* When hovering the PIN, zoom the MAP */
-.D1pin:hover +.map3-container .qcd1 {
-    transform: scale(1.1);
+#mnld4 .map-pin { top: 245%; left: 297%; }
+#mnld1 {
+    width: 65.4%;
+    height: 29.72%;
+    top: 239.8%;
+    left: -219%;
+    transform: scale(1);
 }
-
-/* Make the pin jump up when hovered */
-.D1pin:hover {
-    transform: rotate(-45deg) translate(0, -10px);
-    background-color: #ff0000;
+#mnld1 .map-pin { top: 293%; left: 318%; }
+#mnld2 {
+    width: 38%;
+    height: 34.72%;
+    top: 239.8%;
+    left: -174.1%;
+    transform: scale(1);
 }
-.map4-container {
-    position: relative; /* Keeps the pin inside the box */
-    display: inline-block;
-    width: 350px; /* Adjust to your preferred map size */
-    height: auto;
-    left: -3.1%;
-    top: -38.48%;
-    transform: scale(0.85);
+#mnld2 .map-pin { top: 191%; left: 482%; }
+#mnld5 {
+    width: 114%;
+    height: 34.72%;
+    top: 346.8%;
+    left: -199.1%;
+    transform: scale(1);
 }
-
-/* 2. The Map Image */
-.qcd4 {
-    width: 100%;
-    height: auto;
-    display: block;
-    transition: transform 0.5s ease; /* Smooth zoom */
+#mnld5 .map-pin { top: 191%; left: 198%; }
+#mnld6 {
+    width: 75.5%;
+    height: 34.72%;
+    top: 323.6%;
+    left: -136.1%;
+    transform: scale(1);
 }
-
-/* 3. The Pin (Looks like a Location Marker) */
-.D4pin {
-    position: absolute;
-
-    /* POSITION: Change these numbers to move the pin! */
-    top: 50%;
-    left: 260%;
-
-    /* Shape Design */
-    width: 30px;
-    height: 30px;
-    background-color: #ff3333; /* Red color */
-    border: 2px solid white;
-    border-radius: 50% 50% 50% 0; /* Makes the teardrop shape */
-    transform: rotate(-45deg); /* Points it downward */
-
-    z-index: 10; /* Sits on top */
-    cursor: pointer;
-    box-shadow: 5px 5px 10px rgba(0,0,0,0.3); /* Shadow */
-}
-
-/* Optional: Make the pin bounce slightly so people notice it */
-.D4pin:after {
-    content: '';
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background: white;
-    border-radius: 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* White dot in center */
-}
-
-/* 4. The Interaction */
-/* When hovering the PIN, zoom the MAP */
-.D4pin:hover ~ .qcd4 {
-    transform: scale(1.1);
-}
-
-/* Make the pin jump up when hovered */
-.D4pin:hover {
-    transform: rotate(-45deg) translate(0, -10px);
-    background-color: #ff0000;
-}
-.map5-container {
-    position: relative; /* Keeps the pin inside the box */
-    display: inline-block;
-    width: 298px; /* Adjust to your preferred map size */
-    height: auto;
-    left: -14.1%;
-    top: -25.6%;
-    transform: scale(0.85);
-}
-
-/* 2. The Map Image */
-.qcd3 {
-    width: 100%;
-    height: auto;
-    display: block;
-    transition: transform 0.5s ease; /* Smooth zoom */
-}
-
-/* 3. The Pin (Looks like a Location Marker) */
-.D3pin {
-    position: absolute;
-
-    /* POSITION: Change these numbers to move the pin! */
-    top: 50%;
-    left: 260%;
-
-    /* Shape Design */
-    width: 30px;
-    height: 30px;
-    background-color: #ff3333; /* Red color */
-    border: 2px solid white;
-    border-radius: 50% 50% 50% 0; /* Makes the teardrop shape */
-    transform: rotate(-45deg); /* Points it downward */
-
-    z-index: 10; /* Sits on top */
-    cursor: pointer;
-    box-shadow: 5px 5px 10px rgba(0,0,0,0.3); /* Shadow */
-}
-
-/* Optional: Make the pin bounce slightly so people notice it */
-.D3pin:after {
-    content: '';
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background: white;
-    border-radius: 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* White dot in center */
-}
-
-/* 4. The Interaction */
-/* When hovering the PIN, zoom the MAP */
-.D3pin:hover ~ .qcd3 {
-    transform: scale(1.1);
-}
-
-/* Make the pin jump up when hovered */
-.D3pin:hover {
-    transform: rotate(-45deg) translate(0, -10px);
-    background-color: #ff0000;
-}
+#mnld6 .map-pin { top: 191%; left: 271%; }

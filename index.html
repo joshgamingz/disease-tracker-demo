@@ -10,41 +10,10 @@
     <meta name="description" content="This is navigation bar on html page">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keyowrds" content="html, navigation bar, navigation, bar, javascript, content">
+
 </head>
+
 <body>
-<div id="weather-widget">
-    <p>Loading weather...</p>
-</div>
-<p>
-
-<div class="map-container">
-
-    <div class="pin"></div>
-
-    <img src="QCDISTRICT 5.png" class="qcd5" alt="Map">
-
-</div>
-<div class="map2-container">
-    <div class="D6pin"></div>
-
-    <img src="QCDISTRICT 6.png" class="qcd6" alt="Map">
-</div>
-<div class="map3-container">
-    <div class="D1pin"></div>
-
-    <img src="QCDISTRICT 1.png" class="qcd1" alt="Map">
-</div>
-<div class="map4-container">
-    <div class="D4pin"></div>
-
-    <img src="QCDISTRICT 4.png" class="qcd4" alt="Map">
-</div>
-</div>
-<div class="map5-container">
-    <div class="D3pin"></div>
-
-    <img src="QCDISTRICT 3.png" class="qcd3" alt="Map">
-</div>
 <div class="html-container">
     <div class="html-section">
         <div class="html-project">
@@ -53,8 +22,8 @@
                     <ul class="nav-type">
                         <li><a href="home.html"  class="active">Home</a></li>
                         <li><a href="index.html"  class="active">Map</a></li>
-                        <li><a href="dashboard.html" target="_blank" class="active1">Dashboard</a></li>
-                        <li><a href="report.html" target="_blank" class="active2">Forms</a></li>
+                        <li><a href="dashboard.html"  class="active1">Dashboard</a></li>
+                        <li><a href="report.html"  class="active2">Forms</a></li>
                         <li><a href="education.html"  class="active3">Education</a></li>
 
                     </ul>
@@ -88,6 +57,56 @@
         </div>
     </noscript>
 </div>
+<div id="weather-widget">
+    <p>Loading weather...</p>
+</div>
+<p>
+
+<div id="map-container-responsive">
+
+    <div id="map-canvas">
+
+        <div class="district-box" id="d5">
+            <div class="map-pin"></div> <img src="QCDISTRICT 5.png" alt="District 5">
+        </div>
+
+        <div class="district-box" id="d6">
+            <div class="map-pin"></div> <img src="QCDISTRICT 6.png" alt="District 6">
+        </div>
+
+        <div class="district-box" id="d1">
+            <div class="map-pin"></div> <img src="QCDISTRICT 1.png" alt="District 1">
+        </div>
+
+        <div class="district-box" id="d4">
+            <div class="map-pin"></div> <img src="QCDISTRICT 4.png" alt="District 4">
+        </div>
+
+        <div class="district-box" id="d3">
+            <div class="map-pin"></div> <img src="QCDISTRICT 3.png" alt="District 3">
+        </div>
+        <div class="district-box" id="d2">
+            <div class="map-pin"></div> <img src="QCDISTRICT 2.png" alt="District 2">
+            <div class="district-box" id="mnld3">
+                <div class="map-pin"></div> <img src="MNLDISTRICT 3.png" alt="Manila District 3">
+    </div>
+            <div class="district-box" id="mnld4">
+                <div class="map-pin"></div> <img src="MNLDISTRICT 4.png" alt="Manila District 4">
+            </div>
+            <div class="district-box" id="mnld1">
+                <div class="map-pin"></div> <img src="MNLDISTRICT 1.png" alt="Manila District 1">
+            </div>
+            <div class="district-box" id="mnld2">
+                <div class="map-pin"></div> <img src="MNLDISTRICT 2.png" alt="Manila District 2">
+            </div>
+            <div class="district-box" id="mnld5">
+                <div class="map-pin"></div> <img src="MNLDISTRICT 5.png" alt="Manila District 5">
+            </div>
+            <div class="district-box" id="mnld6">
+                <div class="map-pin"></div> <img src="MNLDISTRICT 6.png" alt="Manila District 6">
+            </div>
+</div>
+
 <template>
     <div class="text-class">
         <div class="text-container">
@@ -102,11 +121,8 @@
     </div>
 </template>
 
-<div class="dropdown" id="anotherFunction">
-    <div class="drop1">HTML</div>
-    <div class="drop2">CSS</div>
-    <div class="drop3">Javascript</div>
-    <div class="drop4">Sass</div>
+
+
 
     <script>
         // [12.8797, 121.7740] is the center of the Philippines
@@ -130,7 +146,99 @@
                 });
             });
     </script>
+    <script>
+        const container = document.getElementById('map-container-responsive');
+        const canvas = document.getElementById('map-canvas');
 
+        // Variables to track position and zoom
+        let currentScale = 1;
+        let isDragging = false;
+        let startX, startY;
+        let translateX = 0, translateY = 0;
+
+        // 1. INITIAL SETUP: Fit map to screen on load
+        function fitToScreen() {
+            const canvasStyle = window.getComputedStyle(canvas);
+            const originalWidth = parseInt(canvasStyle.width);
+            const originalHeight = parseInt(canvasStyle.height); // Get the map's true height
+
+            // Calculate the scale needed to fit the screen
+            const scaleFactor = container.offsetWidth / originalWidth;
+
+            // Set the starting values
+            currentScale = scaleFactor;
+            translateX = 0;
+            translateY = 0;
+
+            updateTransform();
+
+            // --- THE FIX IS HERE ---
+            // We multiply the original height (900px) by the scale (e.g., 0.5)
+            // This tells the container exactly how tall the map is right now.
+            container.style.height = `${originalHeight * scaleFactor}px`;
+        }
+
+        // 2. THE MOVEMENT LOGIC (Apply the math)
+        function updateTransform() {
+            // We move (translate) first, then zoom (scale)
+            canvas.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
+        }
+
+        // 3. ZOOM FEATURE (Mouse Wheel)
+        container.addEventListener('wheel', (e) => {
+            e.preventDefault(); // Stop the whole page from scrolling
+
+            const zoomSpeed = 0.05; // Adjust this to make zoom faster/slower
+
+            if (e.deltaY < 0) {
+                // Scroll Up = Zoom In
+                currentScale += zoomSpeed;
+            } else {
+                // Scroll Down = Zoom Out
+                currentScale -= zoomSpeed;
+            }
+
+            // Optional: Prevent zooming out too far (smaller than screen)
+            if (currentScale < 0.2) currentScale = 0.2;
+
+            updateTransform();
+        });
+
+        // 4. PAN FEATURE (Click and Drag)
+
+        // Start Dragging
+        container.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            canvas.style.cursor = 'grabbing';
+
+            // Record where we started clicking relative to the current movement
+            startX = e.clientX - translateX;
+            startY = e.clientY - translateY;
+        });
+
+        // Stop Dragging
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+            canvas.style.cursor = 'grab';
+        });
+
+        // Move Dragging
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+
+            e.preventDefault();
+
+            // Calculate new position
+            translateX = e.clientX - startX;
+            translateY = e.clientY - startY;
+
+            updateTransform();
+        });
+
+        // Run setup on load and resize
+        window.addEventListener('load', fitToScreen);
+        window.addEventListener('resize', fitToScreen);
+    </script>
 
 
     <script>
