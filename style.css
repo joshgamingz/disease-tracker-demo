@@ -1,15 +1,10 @@
-/*CSS page*/
-/*New Css Project*/
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
 * {
     box-sizing: border-box;
     margin: 0;
 }
 
-/*
-  Css code writen here...
-*/
-/*Body section...@*/
+/* --- Existing CSS --- */
 img {
     height: 650px;
     width: 25%;
@@ -26,9 +21,10 @@ body {
     background-repeat: no-repeat;
     opacity: 1;
     overflow: hidden;
-
     transition: 3s;
 
+    /* --- GLOBAL CONTENT FONT (From Home.html) --- */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 ul {
@@ -36,61 +32,26 @@ ul {
     display: flex;
     padding: 18px 0;
     background-size: 400% 400%;
-
-    /* === YOUR NEW YELLOW GRADIENT === */
     background-image: linear-gradient(-45deg, #ffeb3b, #ffd700, #fbc02d, #ffc107);
-
     animation: 12s myGradient infinite;
     border-radius: 40px;
-
-    /* === A MATCHING YELLOW SHADOW === */
     box-shadow: 3px 3px 20px #ffc107;
-
     border-top-left-radius: 0px;
     border-bottom-right-radius: 0px;
 }
 
 @keyframes myGradient {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    50%{
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
+    0% { background-position: 0% 50%; }
+    50%{ background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
-.fa-search{
-    transition: 1s;
-    cursor: pointer;
-    margin-left: 30px;
-}
-
-.active {
-    transition: 1s;
-}
-
-.active1{
-    transition: 1s;
-}
-
-.active2 {
-    transition: 1s;
-}
-
-.active3 {
-    transition: 1s;
-}
-
+/* --- NAVIGATION FONT (Kept as Verdana) --- */
 li a {
     color: #fff;
     text-decoration: none;
     padding: 45px 45px;
-    font-family: verdana;
+    font-family: verdana; /* KEEPING THIS AS VERDANA */
     font-weight: lighter;
     font-size: 24px;
     letter-spacing: 1px;
@@ -100,437 +61,70 @@ li a {
 .navigation {
     position: absolute;
     left: 50%;
-    top: 30px; /* You can change this value (e.g., 2rem, 5%) */
-    transform: translateX(-50%); /* We only center it horizontally now */
-    size
-
+    top: 30px;
+    transform: translateX(-50%);
 }
 
-.fa-search:hover {
-    color: #fff;
-    animation: 1.5s myFlash linear infinite;
-    text-shadow: 2px 2px 30px #fff;
-    transition: 2s;
-}
-
-.active3:hover {
-    color: #fff;
-    animation: 1.5s myFlash linear infinite;
-    text-shadow: 2px 2px 30px #fff;
-    transition: 2s;
-    margin-top: -100px;
-}
-
-.active2:hover {
-    color: #fff;
-    animation: 1.5s myFlash linear infinite;
-    text-shadow: 2px 2px 30px #fff;
-    transition: 2s;
-}
-
-.active1:hover {
-    color: #fff;
-    animation: 1.5s myFlash linear infinite;
-    text-shadow: 2px 2px 30px #fff;
-    transition: 2s;
-}
-
-.active:hover {
-    color: #fff;
-    animation: 1.5s myFlash linear infinite;
-    text-shadow: 2px 2px 30px #fff;
-    transition: 2s;
-}
-
-@keyframes myFlash {
-    0% {
-        opacity: 1;
-        text-shadow: transparent;
-    }
-
-    50% {
-        opacity: .1;
-    }
-
-    100% {
-        opacity: 1;
-        text-shadow: 2px 2px 20px #fff;
-    }
-}
-
-.line-w5 {
-    width: 5px;
-    height: 200px;
-    background: tomato;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    left: 70%;
-    border-radius: 30px;
-    background-image: linear-gradient(-45deg, #ff408c, #ff4040, #6666ff);
-    background-size: 400% 400%;
-    animation: 13s myBackground infinite;
-    box-shadow: 2px 2px 10px #ff2e38;
-    transition: 3s;
-}
-
-@keyframes myBackground {
-    0% {
-        background-position: 0% 50%;
-        opacity: 0%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-        opacity: 1;
-    }
-}
-
-
-@keyframes myLinear {
-    0%{
-        width: 50px;
-    }
-
-    100% {
-        width: 250px;
-    }
-}
-
-.flash-GIF {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background: #ff5959;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    top: 15%;
-    left: 10%;
-    box-shadow: 2px 2px 20px #d4267d;
-    animation: 1.6s myFlash linear infinite;
-}
-
-@keyframes myFlash{
-    0% {
-        opacity: 1;
-    }
-
-    50%{
-        opacity: .1;
-    }
-
-    100% {
-        opacity: 1;
-    }
-}
-
-nav {
-    transition: 3s;
-    animation: 3s myAnimation ease linear;
-}
-
-@keyframes myAnimation {
-    0% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
-}
-
-.nav-type {
-    animation: 3s myWorld ease linear;
-}
-
-@keyframes myWorld {
-    0% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
-}
-
-@media(max-width: 767px) {
-    .flash-GIF {
-        display: none;
-    }
-
-    .line-w5 {
-        display: none;
-    }
-
-    .navigation {
-        position: absolute;
-        transform: translate(-50%, -50%);
-        top: 50%;
-        left: 50%;
-    }
-
-    .text-content-fluid {
-        position: absolute;
-        transform: translate(-50%, -50%);
-        top: 65%;
-        left: 50%;
-    }
-
-    ul {
-        padding: 15px 0;
-    }
-
-
-    li a {
-        padding: 34px 34px;
-        font-size: 23px;
-        font-weight: lighter;
-    }
-
-    .radial-cyrcle {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        background: tomato;
-        position: absolute;
-        transform: translate(-50%, -50%);
-        top: 70%;
-        left: 50%;
-        box-shadow: 2px 2px 20px #ff3352;
-        background-image: linear-gradient(to top, #ff2657, #ff3333, #ff5900);
-    }
-}
-
-.dropdown  a{
-    display: block;
-    color: #fff;
-    text-decoration: none;
-    background: tomato;
-    width: 100px;
-    text-align: center;
-    font-family: verdana;
-    line-height: 30px;
-    display: none;
-
-}
-
-
-.text-content-fluid {
-    display: flex;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    top: 53%;
-    left: 50%;
-    letter-spacing: 25px;
-    font-size: 50px;
-    font-family: verdana;
-}
-
-.chinese-text {
-    color: #ed4278;
-    text-shadow: 2px 2px 18px #ff3678;
-}
-
-.chinese-text2 {
-    color: #ff3345;
-    text-shadow: 2px 2px 18px #d10045;
-}
-
-.chinese-text3 {
-    color: #d1387d;
-    text-shadow: 2px 2px 18px #ff6e6e;
-}
-
-.chinese-text4 {
-    color: #ff7d82;
-    text-shadow: 2px 2px 18px #ff4d00;
-
-}
-
-.chinese-text5 {
-    color: #f50070;
-    text-shadow: 2px 2px 18px #fa9ecc;
-}
-
-@media(max-width: 767px) {
-    .text-content-fluid {
-        position: absolute;
-        transform: translate(-50%, -50%);
-        left: 50%;
-        top: 60%;
-    }
-}
-
-.line {
-    height: 40px;
-    width: 2px;
-    background: #fff;
-    margin: 0;
-    position: absolute;
-    left: 88%;
-    top: 25%;
-}
-
-/*Ideal screen pixel 1317px*/
-
-.dropdown {
-    background: red;
-    width: 150px;
-    height: 350px;
-    color: #fff;
-    font-family: verdana;
-    padding: 20px 30px;
-    height: 200px;
-    border-radius: 5px;
-    line-height: 50px;
-    text-align: center;
-    font-weight: bold;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    top: 71%;
-    left: 69.2%;
-    transition: 2s;
-    margin-top: 400px;
-    background-size: 400% 400%;
-    background-image: linear-gradient(-45deg, #ff0d0d, #ff0d6e, #ff3d0d, #ffff00);
-    animation: myLineargradient 6s infinite;
-    box-shadow: 2px 3px 20px #ff1700;
-}
-
-@keyframes myLineargradient {
-    0% {
-        background-position: 0% 50%;
-        box-shadow: 2px 3px 20px #ff1700;
-    }
-
-    50% {
-        background-position: 100% 50%;
-        box-shadow: none;
-    }
-
-    100% {
-        background-position: 0% 50%;
-        box-shadow: 2px 3px 20px #ff1700;
-    }
-}
-
-/*top: 71%*/
-
-.drop1 {
-    cursor: pointer;
-    text-shadow: 1px 2px 18px #fff;
-    transition: 2s;
-    margin-top: -5px;
-}
-
-.drop2 {
-    cursor: pointer;
-    text-shadow: 1px 2px 18px #fff;
-    transition: 2s;
-    margin-top: -5px;
-}
-
-.drop3 {
-    cursor: pointer;
-    text-shadow: 1px 2px 18px #fff;
-    transition: 2s;
-    margin-top: -5px;
-}
-
-.drop4 {
-    cursor: pointer;
-    text-shadow: 1px 2px 18px #fff;
-    transition: 2s;
-    margin-top: -5px;
-}
-
-.Active {
-    transition: 2s;
-    margin-top: 1px;
-}
-.weather-widget {
-    background: #ffffff;
-    border-radius: 20px;
-    padding: 2rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: 300px;
-}
-
-#location {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #333;
-}
-
-#temperature {
-    font-size: 4rem;
-    font-weight: 700;
-    color: #007bff;
-    margin: 1rem 0;
-}
-
-#description {
-    font-size: 1.2rem;
-    color: #555;
-    text-transform: capitalize;
-}
-
-#error-message {
-    color: #d9534f;
-    margin-top: 1rem;
-}
-
-/* --- Weather Widget Style --- */
+/* --- UPDATED Weather Widget (Square & Compact) --- */
 #weather-widget {
-    /* --- Positioning --- */
-    position: fixed;  /* This makes it "float" over your page */
-    bottom: 20px;     /* 20px from the bottom */
-    right: 20px;      /* 20px from the right */
-
-    /* --- Appearance --- */
-    width: 200px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 160px;
+    height: 160px;
     background-color: #ffffff;
-    border-radius: 12px;
-    padding: 15px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    color: #333;
+    border-radius: 15px;
+    padding: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 
-    /* --- Center the "Loading" text --- */
+    /* Use the new global font stack */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    color: #333;
     text-align: center;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-/* Styles for when the content is loaded */
 #weather-widget h4 {
-    margin: 0 0 5px 0;
-    font-size: 1.1rem;
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #555;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
 }
 
 #weather-widget .weather-icon {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
+    margin: -5px 0;
 }
 
 #weather-widget .temp {
     font-size: 2rem;
-    font-weight: bold;
-    margin: 5px 0;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1;
+    color: #003f86;
 }
 
 #weather-widget .description {
+    font-size: 0.75rem;
     font-style: italic;
     text-transform: capitalize;
+    margin-top: 5px;
+    color: #777;
 }
-/* 1. The Container */
-/* --- 1. The Main Map Wrapper --- */
-/* This holds everything together. It scales based on screen width. */
-/* --- 1. The Main Map Wrapper --- */
-/* --- The Container --- */
+
+/* --- Map Styling --- */
 #map-container-responsive {
     width: 78%;
     max-width: 1211px;
@@ -539,52 +133,33 @@ nav {
     overflow: hidden;
     position: relative;
     pointer-events: none;
-
 }
 
-/* --- The Fixed Canvas --- */
-/* Find your existing #map-canvas and UPDATE it */
 #map-canvas {
     width: 1300px;
     height: 900px;
     position: absolute;
-    top: 0;
-    left: 0;
-    transform-origin: 0 0; /* IMPORTANT: This keeps the math simple */
+    top: -4%;
+    left: -5%;
+    transform-origin: 0 0;
     pointer-events: auto;
-    /* --- NEW CURSOR STYLES --- */
-    cursor: grab; /* Shows a hand */
-    transition: transform 0.1s ease-out; /* Makes dragging smooth */
-    user-select: none;          /* Standard: Stops text selection */
-    -webkit-user-select: none;  /* Safari/Chrome support */
-    -moz-user-select: none;     /* Firefox support */
+    cursor: grab;
+    transition: transform 0.1s ease-out;
 }
+#map-canvas:active { cursor: grabbing; }
 
-/* When clicking/dragging */
-#map-canvas:active {
-    cursor: grabbing; /* Shows a closed hand */
-}
-
-/* --- District Boxes --- */
 .district-box {
     position: absolute;
     z-index: auto;
-    -webkit-user-drag: none;
 }
-
-/* --- District Images --- */
 .district-box img {
-    width: 100%;        /* Fills the width of the box */
-
-    /* ADD THIS LINE: */
-    height: auto;       /* This overrides the "650px" rule and fixes the aspect ratio */
-
+    width: 100%;
+    height: auto;
     display: block;
     pointer-events: none;
     transition: transform 0.4s ease, filter 0.4s ease;
 }
 
-/* --- The Pins --- */
 .map-pin {
     position: absolute;
     width: 51px;
@@ -593,142 +168,227 @@ nav {
     border: 2px solid white;
     border-radius: 50% 50% 50% 0;
     transform: rotate(-45deg);
-    z-index: 100; /* Pins always on top */
+    z-index: 100;
     cursor: pointer;
     box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
     transition: 0.3s;
 }
-
-/* --- THE ANIMATION LOGIC --- */
-
-/* 1. Animate Pin on Hover */
 .map-pin:hover {
     background-color: #ff0000;
     transform: rotate(-45deg) translate(0, -10px) scale(1.1);
-    z-index: 200; /* Ensure active pin is very top */
+    z-index: 200;
 }
-
-/* 2. Animate Map Image ONLY when Pin is Hovered */
-/* The '+' sign means: "Select the image that comes right after the hovered pin" */
 .map-pin:hover + img {
-    transform: scale(1.05); /* Zoom effect */
-    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3)); /* Pop-out shadow */
-    z-index: 50; /* Bring image slightly up so it doesn't get covered */
+    transform: scale(1.05);
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
+    z-index: 50;
 }
 
-/* --- MANUAL POSITIONING (Quezon City Layout Estimation) --- */
-
-/* District 5: Novaliches (Top Center) */
-#d5 {
-    width: 881px;   /* Large area at the top */
-    height: 57%;
-    top: -9%;
-    left: 3%;
-    transform: scale(.5);
-}
+/* --- POSITIONING --- */
+#d5 { width: 881px; height: 57%; top: -9%; left: 3%; transform: scale(.5); }
 #d5 .map-pin { top: 84%; left: 115%; }
 
-
-/* District 6: Tandang Sora / Balintawak (Middle Left) */
-/* Sits below D5 */
-#d6 {
-    width: 40.6%;
-    height: 29.72%;
-    top: 26.1%;     /* Moved down to sit under D5 */
-    left: 5.45%;
-    transform: scale(.5);
-}
+#d6 { width: 40.6%; height: 29.72%; top: 26.1%; left: 5.45%; transform: scale(.5); }
 #d6 .map-pin { top: 85%; left: 186%; }
 
-
-/* District 1: La Loma / SFDM (Bottom West) */
-/* The "tail" on the left */
-#d1 {
-    width: 34.6%;
-    height: 27.72%;
-    top: 37.6%;
-    left: 5.2%;
-    transform: scale(.5);
-}
+#d1 { width: 34.6%; height: 27.72%; top: 37.6%; left: 5.2%; transform: scale(.5); }
 #d1 .map-pin { top: 84%; left: 213%; }
 
-
-/* District 4: Cubao / Diliman (Bottom Center) */
-/* Tucked between D1 and D3 */
-#d4 {
-    width: 46.6%;
-    height: 41.72%;
-    top: 39.4%;
-    left: 4.1%;
-    transform: scale(.5);
-}
+#d4 { width: 46.6%; height: 41.72%; top: 39.4%; left: 4.1%; transform: scale(.5); }
 #d4 .map-pin { top: 60%; left: 171%; }
 
-
-/* District 3: Project 4 / Loyola (Bottom East) */
-/* The rightmost wing */
-#d3 {
-    width: 32.4%;
-    height: 33.72%;
-    top: 36.8%;
-    left: 19.7%;
-    transform: scale(.5);
-}
+#d3 { width: 32.4%; height: 33.72%; top: 36.8%; left: 19.7%; transform: scale(.5); }
 #d3 .map-pin { top: 135%; left: 191%; }
 
-#d2 {
-    width: 31.4%;
-    height: 29.72%;
-    top: 13.6%;
-    left: 26.2%;
-    transform: scale(.5);
-}
+#d2 { width: 31.4%; height: 29.72%; top: 13.6%; left: 26.2%; transform: scale(.5); }
 #d2 .map-pin { top: 135%; left: 211%; }
-#mnld3 {
-    width: 65.4%;
-    height: 29.72%;
-    top: 242.1%;
-    left: -187.3%;
-    transform: scale(1);
+
+#mnld3 { width: 18%; height: 9.2%; top: 59%; left: 1.5%;transform: scale(.5);  }
+#mnld3 .map-pin { top: 271%; left: 365%;  }
+
+
+#mnld4 { width: 18%; height: 9.2%; top: 62.7%; left: 7.8%;transform: scale(.5);  }
+#mnld4 .map-pin { top: 245%; left: 330%; }
+
+#mnld1 { width: 18%; height: 9.2%; top: 58.8%; left: -3%;transform: scale(.5);  }
+#mnld1 .map-pin { top: 293%; left: 350%; }
+
+#mnld2 { width: 10.7%; height: 5.2%; top: 59.5%; left: 4.8%;transform: scale(.5);  }
+#mnld2 .map-pin { top: 300%; left: 540%; }
+
+#mnld5 { width: 30%; height: 14.2%; top: 73.1%; left: -2.9%;transform: scale(.5);  }
+#mnld5 .map-pin { top: 155%; left: 230%; }
+
+#mnld6 { width: 21%; height: 1.2%; top: 72.8%; left: 7.4%;transform: scale(.5);  }
+#mnld6 .map-pin { top: 1500%; left: 300%; }
+
+
+/* =========================================
+   SAFETY MODAL STYLES
+   ========================================= */
+#safety-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: #ffc107;
+    color: #003f86;
+    border: none;
+    padding: 15px 25px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    z-index: 1000;
+
+    /* Use the new global font stack */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    transition: transform 0.2s;
 }
-#mnld3 .map-pin { top: 271%; left: 327%; }
-#mnld4 {
-    width: 65.4%;
-    height: 29.72%;
-    top: 266.1%;
-    left: -141.3%;
-    transform: scale(1);
+#safety-btn:hover {
+    transform: scale(1.05);
+    background-color: #ffd700;
 }
-#mnld4 .map-pin { top: 245%; left: 297%; }
-#mnld1 {
-    width: 65.4%;
-    height: 29.72%;
-    top: 239.8%;
-    left: -219%;
-    transform: scale(1);
+
+#hover-tooltip {
+    position: fixed;
+    background: rgba(0, 20, 40, 0.9);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+
+    /* Use the new global font stack */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    font-size: 14px;
+    pointer-events: none;
+    display: none;
+    z-index: 2000;
+    border: 1px solid #ffc107;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
 }
-#mnld1 .map-pin { top: 293%; left: 318%; }
-#mnld2 {
-    width: 38%;
-    height: 34.72%;
-    top: 239.8%;
-    left: -174.1%;
-    transform: scale(1);
+.tooltip-title {
+    color: #ffc107;
+    font-weight: bold;
+    border-bottom: 1px solid #555;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
 }
-#mnld2 .map-pin { top: 191%; left: 482%; }
-#mnld5 {
-    width: 114%;
-    height: 34.72%;
-    top: 346.8%;
-    left: -199.1%;
-    transform: scale(1);
+.tooltip-stat { display: flex; justify-content: space-between; width: 100%; }
+.danger-high { color: #ff5959; }
+
+/* MODAL */
+#safety-modal {
+    display: none;
+    position: fixed;
+    z-index: 3000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    backdrop-filter: blur(5px);
 }
-#mnld5 .map-pin { top: 191%; left: 198%; }
-#mnld6 {
-    width: 75.5%;
-    height: 34.72%;
-    top: 323.6%;
-    left: -136.1%;
-    transform: scale(1);
+
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 0;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 15px;
+    overflow: hidden;
+
+    /* Use the new global font stack */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    animation: slideDown 0.4s ease;
 }
-#mnld6 .map-pin { top: 191%; left: 271%; }
+
+@keyframes slideDown {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-header {
+    background: #ffc107;
+    padding: 20px;
+    color: #003f86;
+    text-align: center;
+}
+.modal-header h2 { margin: 0; }
+
+.modal-body { padding: 25px; color: #333; }
+
+/* Modal Views */
+#district-selector { text-align: center; }
+#selector-msg { margin-bottom: 15px; font-size: 1.1rem; }
+#modal-district-select {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+#analyze-btn {
+    background: #003f86;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    width: 100%;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#analyze-btn:hover { background: #0a192f; }
+
+/* Report View */
+.safety-status {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+.status-safe { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+.status-danger { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+.status-neutral { background-color: #e2e3e5; color: #383d41; border: 1px solid #d6d8db; }
+
+.disease-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.disease-card {
+    background: #f0f2f5;
+    padding: 10px;
+    border-radius: 8px;
+}
+/* New Data Display Styles */
+.disease-count { font-size: 28px; font-weight: bold; color: #003f86; line-height: 1; }
+.city-agg { font-size: 11px; color: #666; margin-top: 5px; }
+
+.weather-conclusion {
+    border-top: 1px solid #ddd;
+    padding-top: 15px;
+    margin-top: 15px;
+    font-style: italic;
+}
+
+.close-btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background: #333;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.close-btn:hover { background: #000; }

@@ -1,83 +1,98 @@
 [
   {
-    "id": 1,
-    "location_name": "Quezon City",
-    "lat": 14.676,
-    "lng": 121.0437,
-    "disease": "Dengue",
-    "cases": 0,
-    "date": "2025-10-20"
+    "id": "d1",
+    "city": "Quezon City",
+    "district": "District 1",
+    "dengue": 1,
+    "lepto": 5,
+    "influenza": 45
   },
   {
-    "id": 2,
-    "location_name": "Manila",
-    "lat": 14.5995,
-    "lng": 120.9842,
-    "disease": "Leptospirosis",
-    "cases": 0,
-    "date": "2025-10-21"
+    "id": "d2",
+    "city": "Quezon City",
+    "district": "District 2",
+    "dengue": 8,
+    "lepto": 2,
+    "influenza": 30
   },
   {
-    "id": 3,
-    "location_name": "Quezon City",
-    "lat": 14.676,
-    "lng": 121.0437,
-    "disease": "Dengue",
-    "cases": 0,
-    "date": "2025-10-22"
+    "id": "d3",
+    "city": "Quezon City",
+    "district": "District 3",
+    "dengue": 15,
+    "lepto": 7,
+    "influenza": 50
   },
   {
-    "location_name": "Quezon City",
-    "lat": 14.676,
-    "lng": 121.0437,
-    "disease": "Dengue",
-    "cases": 0,
-    "date": "2025-11-01",
-    "id": 4
+    "id": "d4",
+    "city": "Quezon City",
+    "district": "District 4",
+    "dengue": 20,
+    "lepto": 10,
+    "influenza": 60
   },
   {
-    "location_name": "Quezon City",
-    "lat": 14.676,
-    "lng": 121.0437,
-    "disease": "Dengue",
-    "cases": 0,
-    "date": "2025-11-01",
-    "id": 5
+    "id": "d5",
+    "city": "Quezon City",
+    "district": "District 5",
+    "dengue": 5,
+    "lepto": 1,
+    "influenza": 20
   },
   {
-    "location_name": "Quezon City",
-    "lat": 14.676,
-    "lng": 121.0437,
-    "disease": "Dengue",
-    "cases": 0,
-    "date": "2025-11-01",
-    "id": 6
+    "id": "d6",
+    "city": "Quezon City",
+    "district": "District 6",
+    "dengue": 9,
+    "lepto": 3,
+    "influenza": 35
   },
   {
-    "location_name": "Manila",
-    "lat": 14.5995,
-    "lng": 120.9842,
-    "disease": "Dengue",
-    "cases": 10,
-    "date": "2025-11-03",
-    "id": 7
+    "id": "mnld1",
+    "city": "Manila",
+    "district": "District 1",
+    "dengue": 14,
+    "lepto": 12,
+    "influenza": 40
   },
   {
-    "location_name": "Manila",
-    "lat": 14.5995,
-    "lng": 120.9842,
-    "disease": "Dengue",
-    "cases": 10,
-    "date": "2025-11-03",
-    "id": 8
+    "id": "mnld2",
+    "city": "Manila",
+    "district": "District 2",
+    "dengue": 11,
+    "lepto": 8,
+    "influenza": 32
   },
   {
-    "location_name": "Manila",
-    "lat": 14.5995,
-    "lng": 120.9842,
-    "disease": "Leptospirosis",
-    "cases": 2,
-    "date": "2025-11-05",
-    "id": 9
+    "id": "mnld3",
+    "city": "Manila",
+    "district": "District 3",
+    "dengue": 25,
+    "lepto": 15,
+    "influenza": 70
+  },
+  {
+    "id": "mnld4",
+    "city": "Manila",
+    "district": "District 4",
+    "dengue": 18,
+    "lepto": 9,
+    "influenza": 55
+  },
+  {
+    "id": "mnld5",
+    "city": "Manila",
+    "district": "District 5",
+    "dengue": 22,
+    "lepto": 14,
+    "influenza": 65
+  },
+  {
+    "id": "mnld6",
+    "city": "Manila",
+    "district": "District 6",
+    "dengue": 7,
+    "lepto": 4,
+    "influenza": 25
   }
 ]
