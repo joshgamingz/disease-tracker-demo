@@ -1,221 +1,471 @@
 <html>
 <head>
     <link rel="stylesheet" href="style.css">
-    <title>Navigation bar</title>
+    <title>Disease Weather Tracker</title>
     <meta charset="utf-8">
-    <meta name="author" content="anonymous">
-    <meta name="generator" content="Sublime text3">
-    <meta name="robot" content="index, follow">
-    <meta http-equiv="refresh" content="">
-    <meta name="description" content="This is navigation bar on html page">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keyowrds" content="html, navigation bar, navigation, bar, javascript, content">
 </head>
+
 <body>
+<!-- Navigation -->
+<div class="navigation">
+    <nav>
+        <ul class="nav-type">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="index.html" class="active">Map</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="education.html">Education</a></li>
+        </ul>
+    </nav>
+</div>
+
+<!-- Safety Button -->
+<button id="safety-btn" onclick="checkAreaSafety()">
+    <i class="fa fa-shield"></i> Is my area safe?
+</button>
+
+<!-- Hover Tooltip -->
+<div id="hover-tooltip"></div>
+
+<!-- Safety Modal -->
+<div id="safety-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2><i class="fa fa-exclamation-circle"></i> Safety Report</h2>
+        </div>
+        <div class="modal-body">
+
+            <!-- VIEW 1: DISTRICT SELECTOR -->
+            <div id="district-selector" style="display:none;">
+                <p id="selector-msg">Detected Location: <strong>...</strong></p>
+                <label for="modal-district-select">Select your District:</label>
+                <select id="modal-district-select">
+                    <option value="1">District 1</option>
+                    <option value="2">District 2</option>
+                    <option value="3">District 3</option>
+                    <option value="4">District 4</option>
+                    <option value="5">District 5</option>
+                    <option value="6">District 6</option>
+                </select>
+                <button id="analyze-btn" onclick="calculateAndShowReport()">Analyze Safety</button>
+            </div>
+
+            <!-- VIEW 2: ERROR MESSAGE -->
+            <div id="location-error" style="display:none; text-align:center;">
+                <div class="safety-status status-neutral">Location Not Supported</div>
+                <p>We currently only support safety analysis for <strong>Manila</strong> and <strong>Quezon City</strong>.</p>
+                <p>Detected: <span id="detected-city-name"></span></p>
+            </div>
+
+            <!-- VIEW 3: REPORT RESULT -->
+            <div id="report-result" style="display:none;">
+                <div id="modal-status" class="safety-status">Analyzing...</div>
+
+                <p><strong>Location:</strong> <span id="modal-location">...</span></p>
+
+                <div class="disease-grid">
+                    <div class="disease-card">
+                        <div>Dengue</div>
+                        <div class="disease-count" id="count-dengue">0</div>
+                        <div class="city-agg">City Total: <span id="agg-dengue">0</span></div>
+                    </div>
+                    <div class="disease-card">
+                        <div>Lepto</div>
+                        <div class="disease-count" id="count-lepto">0</div>
+                        <div class="city-agg">City Total: <span id="agg-lepto">0</span></div>
+                    </div>
+                    <div class="disease-card">
+                        <div>Influenza</div>
+                        <div class="disease-count" id="count-flu">0</div>
+                        <div class="city-agg">City Total: <span id="agg-flu">0</span></div>
+                    </div>
+                </div>
+
+                <!-- Detailed Conclusions & Tips -->
+                <div style="margin-top: 20px;">
+                    <div id="dengue-conclusion"></div>
+                    <div id="lepto-conclusion"></div>
+                    <div id="flu-conclusion"></div>
+                </div>
+            </div>
+
+        </div>
+        <button class="close-btn" onclick="closeModal()">Close</button>
+    </div>
+</div>
+
+<!-- Map Container -->
+<div id="map-container-responsive">
+    <div id="map-canvas">
+        <!-- QC Districts -->
+        <div class="district-box" id="d5" data-district-id="d5">
+            <div class="map-pin"></div> <img src="QCDISTRICT 5.png" alt="QC District 5">
+        </div>
+        <div class="district-box" id="d6" data-district-id="d6">
+            <div class="map-pin"></div> <img src="QCDISTRICT 6.png" alt="QC District 6">
+        </div>
+        <div class="district-box" id="d1" data-district-id="d1">
+            <div class="map-pin"></div> <img src="QCDISTRICT 1.png" alt="QC District 1">
+        </div>
+        <div class="district-box" id="d4" data-district-id="d4">
+            <div class="map-pin"></div> <img src="QCDISTRICT 4.png" alt="QC District 4">
+        </div>
+        <div class="district-box" id="d3" data-district-id="d3">
+            <div class="map-pin"></div> <img src="QCDISTRICT 3.png" alt="QC District 3">
+        </div>
+        <div class="district-box" id="d2" data-district-id="d2">
+            <div class="map-pin"></div> <img src="QCDISTRICT 2.png" alt="QC District 2">
+        </div>
+
+        <!-- Manila Districts -->
+        <div class="district-box" id="mnld3" data-district-id="mnld3">
+            <div class="map-pin"></div> <img src="MNLDISTRICT 3.png" alt="Manila District 3">
+        </div>
+        <div class="district-box" id="mnld4" data-district-id="mnld4">
+            <div class="map-pin"></div> <img src="MNLDISTRICT 4.png" alt="Manila District 4">
+        </div>
+        <div class="district-box" id="mnld1" data-district-id="mnld1">
+            <div class="map-pin"></div> <img src="MNLDISTRICT 1.png" alt="Manila District 1">
+        </div>
+        <div class="district-box" id="mnld2" data-district-id="mnld2">
+            <div class="map-pin"></div> <img src="MNLDISTRICT 2.png" alt="Manila District 2">
+        </div>
+        <div class="district-box" id="mnld5" data-district-id="mnld5">
+            <div class="map-pin"></div> <img src="MNLDISTRICT 5.png" alt="Manila District 5">
+        </div>
+        <div class="district-box" id="mnld6" data-district-id="mnld6">
+            <div class="map-pin"></div> <img src="MNLDISTRICT 6.png" alt="Manila District 6">
+        </div>
+    </div>
+</div>
+
+<!-- Weather Widget -->
 <div id="weather-widget">
-    <p>Loading weather...</p>
+    <p>Loading...</p>
 </div>
-<p>
 
-<div class="map-container">
+<!-- SCRIPTS -->
+<script>
+    let currentWeatherData = null;
+    let diseaseData = [];
+    let detectedCityKey = "";
 
-    <div class="pin"></div>
-
-    <img src="QCDISTRICT 5.png" class="qcd5" alt="Map">
-
-</div>
-<div class="map2-container">
-    <div class="D6pin"></div>
-
-    <img src="QCDISTRICT 6.png" class="qcd6" alt="Map">
-</div>
-<div class="map3-container">
-    <div class="D1pin"></div>
-
-    <img src="QCDISTRICT 1.png" class="qcd1" alt="Map">
-</div>
-<div class="map4-container">
-    <div class="D4pin"></div>
-
-    <img src="QCDISTRICT 4.png" class="qcd4" alt="Map">
-</div>
-</div>
-<div class="map5-container">
-    <div class="D3pin"></div>
-
-    <img src="QCDISTRICT 3.png" class="qcd3" alt="Map">
-</div>
-<div class="html-container">
-    <div class="html-section">
-        <div class="html-project">
-            <div class="navigation">
-                <nav>
-                    <ul class="nav-type">
-                        <li><a href="home.html"  class="active">Home</a></li>
-                        <li><a href="index.html"  class="active">Map</a></li>
-                        <li><a href="dashboard.html" target="_blank" class="active1">Dashboard</a></li>
-                        <li><a href="report.html" target="_blank" class="active2">Forms</a></li>
-                        <li><a href="education.html"  class="active3">Education</a></li>
-
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </div>
-    <noscript>
-        <div class="first-line">
-            <div class="linear">
-                <div class="line-w5">
-
-                </div>
-            </div>
-        </div>
-    </noscript>
-    <template>
-        <div class="flash-fluid">
-            <div class="flash-time">
-                <div class="flash-GIF">
-
-                </div>
-            </div>
-        </div>
-    </template>
-    <noscript>
-        <div class="cyrcle-center">
-            <div class="radial-cyrcle">
-
-            </div>
-        </div>
-    </noscript>
-</div>
-<template>
-    <div class="text-class">
-        <div class="text-container">
-            <div class="text-content-fluid" id="chinese-text" data-text-type="chinese">
-                <div class="chinese-text">設</div>
-                <div class="chinese-text2">計</div>
-                <div class="chinese-text3">和</div>
-                <div class="chinese-text4">開</div>
-                <div class="chinese-text5">發</div>
-            </div>
-        </div>
-    </div>
-</template>
-
-<div class="dropdown" id="anotherFunction">
-    <div class="drop1">HTML</div>
-    <div class="drop2">CSS</div>
-    <div class="drop3">Javascript</div>
-    <div class="drop4">Sass</div>
-
-    <script>
-        // [12.8797, 121.7740] is the center of the Philippines
-    var map = L.map('map').setView([12.8797, 121.7740], 6);
-
-    // This adds the map "tiles" (the actual map image)
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-    </script>
-    <script>
-        // Ask Member 2 for the URL. It will be 'http://localhost:3000/get-cases'
-        fetch('http://localhost:3000/get-cases')
-            .then(response => response.json())
-            .then(cases => {
-                // Loop through each case from the JSON file
-                cases.forEach(c => {
-                    // Add a marker (red dot)
-                    L.marker([c.lat, c.lng]).addTo(map)
-                        .bindPopup(`<b>${c.disease}</b><br>${c.cases} cases reported.`);
-                });
-            });
-    </script>
+    // --- 1. LOAD REAL DATA FROM SERVER ---
+    fetch('http://localhost:3000/get-cases')
+        .then(res => res.json())
+        .then(data => {
+            diseaseData = data;
+            console.log("Data loaded from server");
+        })
+        .catch(err => {
+            console.error("Error loading data:", err);
+            alert("Could not connect to server. Please run 'node server.js'");
+        });
 
 
+    // --- 2. MAP HOVER LOGIC ---
+    const tooltip = document.getElementById('hover-tooltip');
+    const pins = document.querySelectorAll('.district-box');
 
-    <script>
-        // Wait for the page to fully load
-        window.addEventListener('load', () => {
-
-            // --- IMPORTANT: REPLACE WITH YOUR OWN API KEY ---
-            const apiKey = "5dbf2a2a3d8b222dfe13b06ca94e8356";
-            // ------------------------------------------------
-
-            const widget = document.getElementById('weather-widget');
-
-            // Function to fetch weather data from OpenWeatherMap
-            // It can be called with coordinates or a default city
-            function fetchWeather(lat, lon, city) {
-                let url;
-                if (lat && lon) {
-                    // Use coordinates if available
-                    url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
-                } else {
-                    // Fallback to a default city (Manila)
-                    url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-                }
-
-                widget.innerHTML = '<p>Loading weather...</p>'; // Show loading message
-
-                fetch(url)
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Weather data not found');
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        // We have the data! Now update the widget's HTML
-                        const temp = Math.round(data.main.temp);
-                        const city = data.name;
-                        const description = data.weather[0].description;
-                        const iconCode = data.weather[0].icon;
-                        const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-
-                        widget.innerHTML = `
-                    <h4>${city}</h4>
-                    <img src="${iconUrl}" alt="${description}" class="weather-icon">
-                    <div class="temp">${temp}°C</div>
-                    <div class="description">${description}</div>
-                `;
-                    })
-                    .catch(error => {
-                        console.error('Error fetching weather:', error);
-                        widget.innerHTML = `<p>Could not load weather. ${error.message}</p>`;
-                    });
-            }
-
-            // --- Geolocation Logic ---
-            if (navigator.geolocation) {
-                // (Success) User allowed location
-                const successCallback = (position) => {
-                    const lat = position.coords.latitude;
-                    const lon = position.coords.longitude;
-                    fetchWeather(lat, lon);
-                };
-
-                // (Error) User blocked or an error occurred
-                const errorCallback = (error) => {
-                    console.warn(`Geolocation error (${error.code}): ${error.message}`);
-                    widget.innerHTML = '<p>Location blocked. Showing default weather.</p>';
-                    // Fallback to default city
-                    fetchWeather(null, null, 'Manila');
-                };
-
-                // Ask the browser for the location
-                navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-
-            } else {
-                // Geolocation is not supported by this browser
-                widget.innerHTML = '<p>Geolocation not supported. Showing default weather.</p>';
-                // Fallback to default city
-                fetchWeather(null, null, 'Manila');
+    pins.forEach(pin => {
+        pin.addEventListener('mouseenter', (e) => {
+            const distId = pin.getAttribute('data-district-id');
+            const info = diseaseData.find(d => d.id === distId);
+            if(info) {
+                tooltip.innerHTML = `
+                        <div class="tooltip-title">${info.city} - ${info.district}</div>
+                        <div class="tooltip-stat"><span>Dengue:</span> <strong>${info.dengue}</strong></div>
+                        <div class="tooltip-stat"><span>Lepto:</span> <strong>${info.lepto}</strong></div>
+                        <div class="tooltip-stat"><span>Influenza:</span> <strong>${info.influenza}</strong></div>
+                    `;
+                tooltip.style.display = 'block';
             }
         });
-        </script>
-</body>
-</html>
+        pin.addEventListener('mousemove', (e) => {
+            tooltip.style.left = e.clientX + 15 + 'px';
+            tooltip.style.top = e.clientY + 15 + 'px';
+        });
+        pin.addEventListener('mouseleave', () => {
+            tooltip.style.display = 'none';
+        });
+    });
 
 
+    // --- 3. WEATHER LOGIC ---
+    const apiKey = "5dbf2a2a3d8b222dfe13b06ca94e8356";
+    const widget = document.getElementById('weather-widget');
+
+    function fetchWeather(lat, lon, city) {
+        let url;
+        if (lat && lon) {
+            url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+        } else {
+            url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+        }
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                currentWeatherData = data;
+                const temp = Math.round(data.main.temp);
+                const city = data.name;
+                const description = data.weather[0].description;
+                const iconCode = data.weather[0].icon;
+                const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+
+                widget.innerHTML = `
+                        <h4>${city}</h4>
+                        <img src="${iconUrl}" alt="${description}" class="weather-icon">
+                        <div class="temp">${temp}°C</div>
+                        <div class="description">${description}</div>
+                    `;
+            })
+            .catch(error => {
+                widget.innerHTML = `<p>Weather Error</p>`;
+            });
+    }
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (pos) => fetchWeather(pos.coords.latitude, pos.coords.longitude),
+            (err) => fetchWeather(null, null, 'Manila')
+        );
+    } else {
+        fetchWeather(null, null, 'Manila');
+    }
+
+
+    // --- 4. SAFETY CHECKER LOGIC ---
+    function checkAreaSafety() {
+        const modal = document.getElementById('safety-modal');
+        const selectorView = document.getElementById('district-selector');
+        const errorView = document.getElementById('location-error');
+        const reportView = document.getElementById('report-result');
+
+        selectorView.style.display = 'none';
+        errorView.style.display = 'none';
+        reportView.style.display = 'none';
+
+        modal.style.display = 'block';
+
+        if (!currentWeatherData) {
+            alert("Weather data still loading. Please wait.");
+            modal.style.display = 'none';
+            return;
+        }
+
+        const cityName = currentWeatherData.name.toLowerCase();
+
+        if (cityName.includes("manila")) {
+            detectedCityKey = "manila";
+            document.getElementById('selector-msg').innerHTML = `Detected: <strong>Manila</strong>`;
+            selectorView.style.display = 'block';
+        }
+        else if (cityName.includes("quezon") || cityName.includes("qc")) {
+            detectedCityKey = "qc";
+            document.getElementById('selector-msg').innerHTML = `Detected: <strong>Quezon City</strong>`;
+            selectorView.style.display = 'block';
+        }
+        else {
+            document.getElementById('detected-city-name').innerText = currentWeatherData.name;
+            errorView.style.display = 'block';
+        }
+    }
+
+    function calculateAndShowReport() {
+        const selectorView = document.getElementById('district-selector');
+        const reportView = document.getElementById('report-result');
+
+        const districtNum = document.getElementById('modal-district-select').value;
+
+        let targetId = "";
+        if (detectedCityKey === "qc") {
+            targetId = "d" + districtNum;
+        } else {
+            targetId = "mnld" + districtNum;
+        }
+
+        const districtInfo = diseaseData.find(d => d.id === targetId);
+
+        let aggDengue = 0, aggLepto = 0, aggFlu = 0;
+
+        diseaseData.forEach(d => {
+            if (detectedCityKey === "qc" && d.id.startsWith("d")) {
+                aggDengue += d.dengue; aggLepto += d.lepto; aggFlu += d.influenza;
+            }
+            else if (detectedCityKey === "manila" && d.id.startsWith("mnld")) {
+                aggDengue += d.dengue; aggLepto += d.lepto; aggFlu += d.influenza;
+            }
+        });
+
+        if(districtInfo) {
+            document.getElementById('modal-location').innerText = `${districtInfo.city}, District ${districtNum}`;
+            document.getElementById('count-dengue').innerText = districtInfo.dengue;
+            document.getElementById('count-lepto').innerText = districtInfo.lepto;
+            document.getElementById('count-flu').innerText = districtInfo.influenza;
+        } else {
+            document.getElementById('modal-location').innerText = "Data Unavailable";
+        }
+
+        document.getElementById('agg-dengue').innerText = aggDengue;
+        document.getElementById('agg-lepto').innerText = aggLepto;
+        document.getElementById('agg-flu').innerText = aggFlu;
+
+        // --- NEW ANALYSIS LOGIC ---
+        let isRaining = false;
+        const weatherId = currentWeatherData.weather[0].id;
+        const temp = currentWeatherData.main.temp;
+        if (weatherId < 600) isRaining = true; // Rain/Thunderstorm
+
+        // Thresholds
+        const THRESHOLD_DENGUE = 10;
+        const THRESHOLD_LEPTO = 5;
+        const THRESHOLD_FLU = 20;
+
+        // 1. DENGUE REPORT
+        let dengueHTML = "";
+        if (districtInfo && districtInfo.dengue > THRESHOLD_DENGUE) {
+            dengueHTML = `<div style="color: #721c24; background: #f8d7da; padding: 10px; border-radius: 5px; margin-bottom: 10px; font-size: 0.9rem;">
+                    <strong><i class="fa fa-bug"></i> Dengue Alert (High Cases):</strong> Cases are rising (>10). <br>
+                    <em>Tip:</em> Avoid stagnant water & use repellents.
+                </div>`;
+        } else if (isRaining) {
+            dengueHTML = `<div style="color: #856404; background: #fff3cd; padding: 10px; border-radius: 5px; margin-bottom: 10px; font-size: 0.9rem;">
+                    <strong><i class="fa fa-bug"></i> Dengue Caution:</strong> Rain creates breeding grounds.<br>
+                    <em>Tip:</em> Check your surroundings for stagnant water.
+                </div>`;
+        } else {
+            dengueHTML = `<div style="color: #155724; background: #d4edda; padding: 10px; border-radius: 5px; margin-bottom: 10px; font-size: 0.9rem;">
+                    <strong><i class="fa fa-check-circle"></i> Dengue:</strong> Low risk currently.<br>
+                    <em>Tip:</em> Keep using screens as precaution.
+                </div>`;
+        }
+        document.getElementById('dengue-conclusion').innerHTML = dengueHTML;
+
+        // 2. LEPTO REPORT
+        let leptoHTML = "";
+        if (isRaining && districtInfo && districtInfo.lepto > THRESHOLD_LEPTO) {
+            leptoHTML = `<div style="color: #721c24; background: #f8d7da; padding: 10px; border-radius: 5px; margin-bottom: 10px; font-size: 0.9rem;">
+                    <strong><i class="fa fa-tint"></i> Lepto Danger (Rain + Cases):</strong> High risk area.<br>
+                    <em>Tip:</em> Avoid floodwaters entirely. Wear boots if necessary.
+                </div>`;
+        } else if (isRaining) {
+            leptoHTML = `<div style="color: #856404; background: #fff3cd; padding: 10px; border-radius: 5px; margin-bottom: 10px; font-size: 0.9rem;">
+                    <strong><i class="fa fa-tint"></i> Lepto Warning:</strong> Rain increases risk.<br>
+                    <em>Tip:</em> Do not walk in flood water to avoid infection.
+                </div>`;
+        } else {
+            leptoHTML = `<div style="color: #155724; background: #d4edda; padding: 10px; border-radius: 5px; margin-bottom: 10px; font-size: 0.9rem;">
+                    <strong><i class="fa fa-check-circle"></i> Leptospirosis:</strong> Low risk.<br>
+                    <em>Tip:</em> Maintain hygiene.
+                </div>`;
+        }
+        document.getElementById('lepto-conclusion').innerHTML = leptoHTML;
+
+        // 3. FLU REPORT
+        let fluHTML = "";
+        if (districtInfo && districtInfo.influenza > THRESHOLD_FLU) {
+            fluHTML = `<div style="color: #721c24; background: #f8d7da; padding: 10px; border-radius: 5px; margin-bottom: 10px; font-size: 0.9rem;">
+                    <strong><i class="fa fa-medkit"></i> Flu Alert (High Transmission):</strong> Cases > ${THRESHOLD_FLU}.<br>
+                    <em>Tip:</em> Wear a mask in crowded areas & boost immunity.
+                </div>`;
+        } else if (temp < 24 || isRaining) {
+            fluHTML = `<div style="color: #856404; background: #fff3cd; padding: 10px; border-radius: 5px; margin-bottom: 10px; font-size: 0.9rem;">
+                    <strong><i class="fa fa-medkit"></i> Flu Caution:</strong> Cold/Wet weather triggers flu.<br>
+                    <em>Tip:</em> Avoid getting soaked and keep warm.
+                </div>`;
+        } else {
+            fluHTML = `<div style="color: #155724; background: #d4edda; padding: 10px; border-radius: 5px; margin-bottom: 10px; font-size: 0.9rem;">
+                    <strong><i class="fa fa-check-circle"></i> Influenza:</strong> Cases are stable.<br>
+                    <em>Tip:</em> Stay hydrated.
+                </div>`;
+        }
+        document.getElementById('flu-conclusion').innerHTML = fluHTML;
+
+
+        // OVERALL STATUS
+        let safetyClass = "status-safe";
+        let safetyText = "AREA IS RELATIVELY SAFE";
+
+        // If any disease is in the "Red" condition
+        if (
+            (districtInfo.dengue > THRESHOLD_DENGUE) ||
+            (isRaining && districtInfo.lepto > THRESHOLD_LEPTO) ||
+            (districtInfo.influenza > 40) // Critical flu
+        ) {
+            safetyClass = "status-danger";
+            safetyText = "WARNING: HEALTH RISKS DETECTED";
+        } else if (isRaining || districtInfo.influenza > THRESHOLD_FLU) {
+            safetyClass = "status-neutral";
+            safetyText = "CAUTION ADVISED";
+        }
+
+        const statusDiv = document.getElementById('modal-status');
+        statusDiv.className = "safety-status " + safetyClass;
+        statusDiv.innerText = safetyText;
+
+        selectorView.style.display = 'none';
+        reportView.style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('safety-modal').style.display = 'none';
+    }
+
+
+    // --- 5. MAP INTERACTION LOGIC ---
+    const container = document.getElementById('map-container-responsive');
+    const canvas = document.getElementById('map-canvas');
+    let currentScale = 1;
+    let isDragging = false;
+    let startX, startY, translateX = 0, translateY = 0;
+
+    function fitToScreen() {
+        const canvasStyle = window.getComputedStyle(canvas);
+        const originalHeight = parseInt(canvasStyle.height);
+        const scaleFactor = container.offsetWidth / parseInt(canvasStyle.width);
+        currentScale = scaleFactor;
+        translateX = 0; translateY = 0;
+        updateTransform();
+        container.style.height = `${originalHeight * scaleFactor}px`;
+    }
+
+    function updateTransform() {
+        canvas.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
+    }
+
+    container.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const zoomSpeed = 0.05;
+        if (e.deltaY < 0) currentScale += zoomSpeed;
+        else currentScale -= zoomSpeed;
+        if (currentScale < 0.2) currentScale = 0.2;
+        updateTransform();
+    });
+
+    container.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        canvas.style.cursor = 'grabbing';
+        startX = e.clientX - translateX;
+        startY = e.clientY - translateY;
+    });
+
+    window.addEventListener('mouseup', () => {
+        isDragging = false;
+        canvas.style.cursor = 'grab';
+    });
+
+    window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        translateX = e.clientX - startX;
+        translateY = e.clientY - startY;
+        updateTransform();
+    });
+
+    window.addEventListener('load', fitToScreen);
+    window.addEventListener('resize', fitToScreen);
+
+</script>
 </body>
 </html>

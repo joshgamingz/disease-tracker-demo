@@ -1,57 +1,512 @@
 <html>
 <head>
-    <link rel="stylesheet" href="style.css">
+    <title>Disease Dashboard</title>
+    <style>
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+        * {
+            box-sizing: border-box;
+            margin: 0;
+        }
+
+        /* --- NAVBAR & ANIMATION CSS (UNCHANGED) --- */
+        img {
+            height: 650px;
+            width: 25%;
+            margin-left: 700px;
+            margin-top: 120px;
+        }
+
+        body {
+            background-color: #003f86;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100vh;
+            background-size: cover;
+            background-repeat: no-repeat;
+            opacity: 1;
+            overflow-y: auto;
+            transition: 3s;
+
+            /* NEW CONTENT FONT */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+        }
+
+        ul {
+            list-style-type: none;
+            display: flex;
+            padding: 18px 0;
+            background-size: 400% 400%;
+            background-image: linear-gradient(-45deg, #ffeb3b, #ffd700, #fbc02d, #ffc107);
+            animation: 12s myGradient infinite;
+            border-radius: 40px;
+            box-shadow: 3px 3px 20px #ffc107;
+            border-top-left-radius: 0px;
+            border-bottom-right-radius: 0px;
+        }
+
+        @keyframes myGradient {
+            0% { background-position: 0% 50%; }
+            50%{ background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .fa-search{
+            transition: 1s;
+            cursor: pointer;
+            margin-left: 30px;
+        }
+
+        li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 45px 45px;
+            font-family: verdana; /* KEEP NAV FONT */
+            font-weight: lighter;
+            font-size: 24px;
+            letter-spacing: 1px;
+            opacity: 0.9;
+        }
+
+        .navigation {
+            position: absolute;
+            left:50.4%;
+            top: 30px;
+            transform: translateX(-50%);
+            z-index: 1000;
+        }
+
+        .fa-search:hover {
+            color: #fff;
+            animation: 1.5s myFlash linear infinite;
+            text-shadow: 2px 2px 30px #fff;
+            transition: 2s;
+        }
+
+        .active:hover, .active1:hover, .active2:hover, .active3:hover {
+            color: #fff;
+            animation: 1.5s myFlash linear infinite;
+            text-shadow: 2px 2px 30px #fff;
+            transition: 2s;
+        }
+
+        .active3:hover {
+            margin-top: -10px;
+        }
+
+        @keyframes myFlash {
+            0% { opacity: 1; text-shadow: transparent; }
+            50% { opacity: .1; }
+            100% { opacity: 1; text-shadow: 2px 2px 20px #fff; }
+        }
+
+        .line-w5 {
+            width: 5px;
+            height: 200px;
+            background: tomato;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            left: 70%;
+            border-radius: 30px;
+            background-image: linear-gradient(-45deg, #ff408c, #ff4040, #6666ff);
+            background-size: 400% 400%;
+            animation: 13s myBackground infinite;
+            box-shadow: 2px 2px 10px #ff2e38;
+            transition: 3s;
+        }
+
+        @keyframes myBackground {
+            0% { background-position: 0% 50%; opacity: 0%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; opacity: 1; }
+        }
+
+        .flash-GIF {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #ff5959;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: 15%;
+            left: 10%;
+            box-shadow: 2px 2px 20px #d4267d;
+            animation: 1.6s myFlash linear infinite;
+        }
+
+        nav {
+            transition: 3s;
+            animation: 3s myAnimation ease linear;
+        }
+
+        @keyframes myAnimation {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .nav-type {
+            animation: 3s myWorld ease linear;
+        }
+
+        @keyframes myWorld {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @media(max-width: 767px) {
+            .flash-GIF { display: none; }
+            .line-w5 { display: none; }
+            .navigation {
+                position: absolute;
+                transform: translate(-50%, -50%);
+                top: 50%;
+                left: 50%;
+            }
+            .text-content-fluid {
+                position: absolute;
+                transform: translate(-50%, -50%);
+                top: 65%;
+                left: 50%;
+            }
+            ul { padding: 15px 0; }
+            li a { padding: 34px 34px; font-size: 23px; font-weight: lighter; }
+            .radial-cyrcle {
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                background: tomato;
+                position: absolute;
+                transform: translate(-50%, -50%);
+                top: 70%;
+                left: 50%;
+                box-shadow: 2px 2px 20px #ff3352;
+                background-image: linear-gradient(to top, #ff2657, #ff3333, #ff5900);
+            }
+        }
+
+        /* --- DASHBOARD SPECIFIC STYLES --- */
+
+        .dashboard-wrapper {
+            margin-top: 160px; /* Push down below nav */
+            padding: 20px 5%;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        h1.page-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Summary Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .stat-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #ffc107;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.9;
+        }
+
+        /* Chart Section */
+        .charts-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        @media (min-width: 900px) {
+            .charts-container {
+                grid-template-columns: 2fr 1fr; /* Large chart left, smaller right */
+            }
+        }
+
+        .chart-box {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            color: #333;
+        }
+
+        .chart-box h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #003f86;
+            font-size: 1.5rem;
+        }
+
+        /* Table Section */
+        .data-table-box {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            color: #333;
+            overflow-x: auto;
+        }
+
+        .data-table-box h3 {
+            color: #003f86;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #003f86;
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+    </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body><div class="html-container">
+<body>
+
+<div class="html-container">
     <div class="html-section">
         <div class="html-project">
             <div class="navigation">
                 <nav>
                     <ul class="nav-type">
-                        <li><a href="index.html" target="_blank" class="active">Map</a></li>
-                        <li><a href="dashboard.html" target="_blank" class="active1">Dashboard</a></li>
-                        <li><a href="report.html" target="_blank" class="active2">Forms</a></li>
-                        <li><a href="https://w3schools.com/" target="_blank" class="active3">Education</a></li>
-
+                        <li><a href="home.html">Home</a></li>
+                        <li><a href="index.html">Map</a></li>
+                        <li><a href="dashboard.html" class="active1">Dashboard</a></li>
+                        <li><a href="education.html" class="active3">Education</a></li>
                     </ul>
                 </nav>
             </div>
         </div>
     </div>
-<canvas id="myChart"></canvas>
-<h1>chart</h1>
+</div>
+
+<div class="dashboard-wrapper">
+    <h1 class="page-title">Health Analytics Dashboard</h1>
+
+    <!-- 1. SUMMARY CARDS -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <i class="fa fa-bug stat-icon"></i>
+            <div class="stat-number" id="total-dengue">0</div>
+            <div class="stat-label">Dengue Cases</div>
+        </div>
+        <div class="stat-card">
+            <i class="fa fa-tint stat-icon"></i>
+            <div class="stat-number" id="total-lepto">0</div>
+            <div class="stat-label">Leptospirosis</div>
+        </div>
+        <div class="stat-card">
+            <i class="fa fa-medkit stat-icon"></i>
+            <div class="stat-number" id="total-flu">0</div>
+            <div class="stat-label">Influenza</div>
+        </div>
+        <div class="stat-card">
+            <i class="fa fa-users stat-icon" style="color: #fff;"></i>
+            <div class="stat-number" id="total-cases">0</div>
+            <div class="stat-label">Total Reports</div>
+        </div>
+    </div>
+
+    <!-- 2. CHARTS ROW -->
+    <div class="charts-container">
+        <!-- Main Bar Chart -->
+        <div class="chart-box">
+            <h3><i class="fa fa-bar-chart"></i> Disease Overview by Category</h3>
+            <canvas id="mainBarChart"></canvas>
+        </div>
+
+        <!-- Pie Chart (City Distribution) -->
+        <div class="chart-box">
+            <h3><i class="fa fa-pie-chart"></i> City Distribution</h3>
+            <canvas id="cityPieChart"></canvas>
+        </div>
+    </div>
+
+    <!-- 3. DATA TABLE -->
+    <div class="data-table-box">
+        <h3><i class="fa fa-table"></i> Recent District Reports</h3>
+        <table>
+            <thead>
+            <tr>
+                <th>City</th>
+                <th>District</th>
+                <th>Dengue</th>
+                <th>Leptospirosis</th>
+                <th>Influenza</th>
+            </tr>
+            </thead>
+            <tbody id="table-body">
+            <!-- Rows will be added here by JS -->
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
 <script>
-    // Ask Member 2 for this URL
     fetch('http://localhost:3000/get-cases')
         .then(response => response.json())
-        .then(cases => {
-            // --- This part adds up the totals ---
-            let totals = { "Dengue": 0, "Leptospirosis": 0 };
-            cases.forEach(c => {
-                if (c.disease === "Dengue") {
-                    totals.Dengue += c.cases;
-                } else if (c.disease === "Leptospirosis") {
-                    totals.Leptospirosis += c.cases;
-                }
-            });
-            // --- ---
+        .then(data => {
 
-            // This part builds the chart
-            const ctx = document.getElementById('myChart');
-            new Chart(ctx, {
+            // --- 1. PROCESS DATA ---
+            let totals = { dengue: 0, lepto: 0, flu: 0 };
+            let cityStats = { "Quezon City": 0, "Manila": 0 };
+
+            const tableBody = document.getElementById('table-body');
+
+            data.forEach(d => {
+                // Sum totals
+                totals.dengue += d.dengue;
+                totals.lepto += d.lepto;
+                totals.flu += d.influenza;
+
+                // Sum City Totals (Total cases of all diseases per city)
+                const rowTotal = d.dengue + d.lepto + d.influenza;
+                if (cityStats[d.city] !== undefined) {
+                    cityStats[d.city] += rowTotal;
+                }
+
+                // Add to Table
+                const row = `<tr>
+                    <td>${d.city}</td>
+                    <td>${d.district}</td>
+                    <td>${d.dengue}</td>
+                    <td>${d.lepto}</td>
+                    <td>${d.influenza}</td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            });
+
+            const grandTotal = totals.dengue + totals.lepto + totals.flu;
+
+            // --- 2. UPDATE CARDS ---
+            document.getElementById('total-dengue').innerText = totals.dengue;
+            document.getElementById('total-lepto').innerText = totals.lepto;
+            document.getElementById('total-flu').innerText = totals.flu;
+            document.getElementById('total-cases').innerText = grandTotal;
+
+            // --- 3. RENDER CHARTS ---
+
+            // Bar Chart
+            const ctxBar = document.getElementById('mainBarChart').getContext('2d');
+            new Chart(ctxBar, {
                 type: 'bar',
                 data: {
-                    labels: ['Dengue', 'Leptospirosis'],
+                    labels: ['Dengue', 'Leptospirosis', 'Influenza'],
                     datasets: [{
-                        label: '# of Total Cases',
-                        data: [totals.Dengue, totals.Leptospirosis],
-                        backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)'],
-                        borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
+                        label: 'Number of Cases',
+                        data: [totals.dengue, totals.lepto, totals.flu],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.7)',
+                            'rgba(54, 162, 235, 0.7)',
+                            'rgba(255, 206, 86, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)'
+                        ],
                         borderWidth: 1
                     }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
                 }
             });
+
+            // Pie Chart
+            const ctxPie = document.getElementById('cityPieChart').getContext('2d');
+            new Chart(ctxPie, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Quezon City', 'Manila'],
+                    datasets: [{
+                        data: [cityStats["Quezon City"], cityStats["Manila"]],
+                        backgroundColor: [
+                            '#ff6384',
+                            '#36a2eb'
+                        ],
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true
+                }
+            });
+
+        })
+        .catch(err => {
+            console.error("Error loading data:", err);
+            alert("Could not connect to server. Please run 'node server.js'");
         });
 </script>
 </body>

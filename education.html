@@ -11,15 +11,8 @@
             margin: 0;
         }
 
-        /* --- YOUR ORIGINAL NAVBAR & ANIMATION CSS --- */
+        /* --- 1. NAVIGATION & BACKGROUND STYLES (UNCHANGED) --- */
 
-        img {
-            height: 650px;
-            width: 25%;
-            margin-left: 700px;
-            margin-top: 120px;
-
-        }
         body {
             background-color: #003f86;
             margin: 0;
@@ -29,9 +22,10 @@
             background-size: cover;
             background-repeat: no-repeat;
             opacity: 1;
-            /* CHANGED: from hidden to auto so you can scroll to see the text! */
             overflow-y: auto;
             transition: 3s;
+            /* Using your project's font stack */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         ul {
@@ -39,7 +33,6 @@
             display: flex;
             padding: 18px 0;
             background-size: 400% 400%;
-            /* YOUR YELLOW GRADIENT */
             background-image: linear-gradient(-45deg, #ffeb3b, #ffd700, #fbc02d, #ffc107);
             animation: 12s myGradient infinite;
             border-radius: 40px;
@@ -52,12 +45,6 @@
             0% { background-position: 0% 50%; }
             50%{ background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
-        }
-
-        .fa-search{
-            transition: 1s;
-            cursor: pointer;
-            margin-left: 30px;
         }
 
         li a {
@@ -73,31 +60,20 @@
 
         .navigation {
             position: absolute;
-            left:50.4%;
+            left: 50.4%;
             top: 30px;
             transform: translateX(-50%);
-            z-index: 1000; /* Keeps nav on top of text */
+            z-index: 1000;
         }
 
-        .fa-search:hover {
-            color: #fff;
-            animation: 1.5s myFlash linear infinite;
-            text-shadow: 2px 2px 30px #fff;
-            transition: 2s;
-        }
-
-        /* Hover effects for active links */
+        /* Hover effects */
         .active:hover, .active1:hover, .active2:hover, .active3:hover {
             color: #fff;
             animation: 1.5s myFlash linear infinite;
             text-shadow: 2px 2px 30px #fff;
             transition: 2s;
         }
-
-        /* Special hover for active3 to move it up slightly */
-        .active3:hover {
-            margin-top: -10px; /* Adjusted from -100px to prevent breaking layout */
-        }
+        .active3:hover { margin-top: -10px; }
 
         @keyframes myFlash {
             0% { opacity: 1; text-shadow: transparent; }
@@ -105,6 +81,7 @@
             100% { opacity: 1; text-shadow: 2px 2px 20px #fff; }
         }
 
+        /* Background Decorations */
         .line-w5 {
             width: 5px;
             height: 200px;
@@ -140,335 +117,278 @@
             animation: 1.6s myFlash linear infinite;
         }
 
-        nav {
-            transition: 3s;
-            animation: 3s myAnimation ease linear;
-        }
-
-        @keyframes myAnimation {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
-        .nav-type {
-            animation: 3s myWorld ease linear;
-        }
-
-        @keyframes myWorld {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
-        /* Responsive */
+        /* Responsive Nav */
         @media(max-width: 767px) {
             .flash-GIF { display: none; }
             .line-w5 { display: none; }
-            .navigation {
-                position: absolute;
-                transform: translate(-50%, -50%);
-                top: 50%;
-                left: 50%;
-            }
-            .text-content-fluid {
-                position: absolute;
-                transform: translate(-50%, -50%);
-                top: 65%;
-                left: 50%;
-            }
+            .navigation { top: 50%; left: 50%; }
             ul { padding: 15px 0; }
             li a { padding: 34px 34px; font-size: 23px; font-weight: lighter; }
-            .radial-cyrcle {
-                width: 60px;
-                height: 60px;
-                border-radius: 50%;
-                background: tomato;
-                position: absolute;
-                transform: translate(-50%, -50%);
-                top: 70%;
-                left: 50%;
-                box-shadow: 2px 2px 20px #ff3352;
-                background-image: linear-gradient(to top, #ff2657, #ff3333, #ff5900);
-            }
         }
 
-        .text-content-fluid {
-            display: flex;
+        .radial-cyrcle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: tomato;
             position: absolute;
             transform: translate(-50%, -50%);
-            top: 53%;
+            top: 70%;
             left: 50%;
-            letter-spacing: 25px;
-            font-size: 50px;
-            font-family: verdana;
-            z-index: -1; /* Push behind content */
+            box-shadow: 2px 2px 20px #ff3352;
+            background-image: linear-gradient(to top, #ff2657, #ff3333, #ff5900);
         }
 
-        .chinese-text { color: #ed4278; text-shadow: 2px 2px 18px #ff3678; }
-        .chinese-text2 { color: #ff3345; text-shadow: 2px 2px 18px #d10045; }
-        .chinese-text3 { color: #d1387d; text-shadow: 2px 2px 18px #ff6e6e; }
-        .chinese-text4 { color: #ff7d82; text-shadow: 2px 2px 18px #ff4d00; }
-        .chinese-text5 { color: #f50070; text-shadow: 2px 2px 18px #fa9ecc; }
 
-        .line {
-            height: 40px;
-            width: 2px;
-            background: #fff;
-            margin: 0;
-            position: absolute;
-            left: 88%;
-            top: 25%;
-        }
+        /* --- 2. NEW CONTENT STYLING (From your Text Document) --- */
 
-        /* Dropdown CSS - Kept exactly as yours */
-        .dropdown {
-            background: red;
-            width: 150px;
-            height: 200px; /* Kept height small as per your code */
-            color: #fff;
-            font-family: verdana;
-            padding: 20px 30px;
-            border-radius: 5px;
-            line-height: 50px;
-            text-align: center;
-            font-weight: bold;
-            position: absolute;
-            transform: translate(-50%, -50%);
-            top: 71%;
-            left: 69.2%;
-            transition: 2s;
-            margin-top: 400px;
-            background-size: 400% 400%;
-            background-image: linear-gradient(-45deg, #ff0d0d, #ff0d6e, #ff3d0d, #ffff00);
-            animation: myLineargradient 6s infinite;
-            box-shadow: 2px 3px 20px #ff1700;
-            z-index: 1;
-        }
-
-        @keyframes myLineargradient {
-            0% { background-position: 0% 50%; box-shadow: 2px 3px 20px #ff1700; }
-            50% { background-position: 100% 50%; box-shadow: none; }
-            100% { background-position: 0% 50%; box-shadow: 2px 3px 20px #ff1700; }
-        }
-
-        .drop1, .drop2, .drop3, .drop4 {
-            cursor: pointer;
-            text-shadow: 1px 2px 18px #fff;
-            transition: 2s;
-            margin-top: -5px;
-        }
-
-        /* --- CONTENT STYLING (Added to make text visible) --- */
-
-        /* New container to push text below the nav bar */
         .container-view {
-            margin-top: 200px; /* Pushes content down */
+            margin-top: 200px;
             padding: 20px 10%;
             position: relative;
-            z-index: 10; /* Brings text in front of background elements */
+            z-index: 10;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        header {
+        header.page-header {
             text-align: center;
             padding: 20px 0;
-            color: white; /* Made white so it is visible on blue background */
+            color: white;
+            margin-bottom: 30px;
         }
-
-        header h1 { margin-bottom: 10px; }
+        header.page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+        }
+        header.page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
 
         .weather-section {
             background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
-        h2 { color: #2f4f6f; }
-        ul.tips-list { margin: 10px 0 20px 20px; list-style-type: disc; display: block; background: none; box-shadow: none; animation: none; } /* Reset ul for content */
+        h2 {
+            color: #194a7d;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        h3 {
+            color: #333;
+            font-size: 1.25em;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
 
         .card {
-            padding: 15px;
-            background: #f9fbfe;
-            border-left: 4px solid #4a90e2;
-            margin-bottom: 10px;
-            border-radius: 6px;
+            padding: 20px;
+            background: #fdfefe;
+            border-left: 5px solid #4a90e2;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
-        .symptoms { font-style: italic; color: #555; }
+        .card-image {
+            width: 100%;
+            max-width: 400px;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            margin: 15px 0;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .symptoms {
+            font-style: normal;
+            color: #555;
+            font-size: 1em;
+            margin-bottom: 15px;
+            background: #f0f4f8;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        /* First Aid Notification Style */
+        .first-aid-tip {
+            background: #fff0f0;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 15px;
+            margin-bottom: 0;
+            border-left: 6px solid #c74c4c;
+        }
+        .first-aid-label {
+            color: #c74c4c;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            margin-right: 5px;
+        }
 
         footer {
             text-align: center;
             margin-top: 40px;
+            padding: 20px;
             color: #ddd;
-            padding-bottom: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
 
     </style>
 </head>
 <body>
 
+<!-- 1. Navigation Structure -->
 <div class="html-container">
     <div class="html-section">
         <div class="html-project">
             <div class="navigation">
                 <nav>
                     <ul class="nav-type">
-                        <li><a href="home.html"  class="active">Home</a></li>
-                        <li><a href="index.html"  class="active">Map</a></li>
-                        <li><a href="dashboard.html" target="_blank" class="active1">Dashboard</a></li>
-                        <li><a href="report.html" target="_blank" class="active2">Forms</a></li>
-                        <li><a href="education.html"  class="active3">Education</a></li>
+                        <li><a href="home.html">Home</a></li>
+                        <li><a href="index.html">Map</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="education.html" class="active3">Education</a></li>
                     </ul>
                 </nav>
             </div>
         </div>
     </div>
 
+    <!-- Background Animations -->
     <noscript>
-        <div class="first-line">
-            <div class="linear">
-                <div class="line-w5"></div>
-            </div>
-        </div>
+        <div class="first-line"><div class="linear"><div class="line-w5"></div></div></div>
     </noscript>
     <template>
-        <div class="flash-fluid">
-            <div class="flash-time">
-                <div class="flash-GIF"></div>
-            </div>
-        </div>
+        <div class="flash-fluid"><div class="flash-time"><div class="flash-GIF"></div></div></div>
     </template>
     <noscript>
-        <div class="cyrcle-center">
-            <div class="radial-cyrcle"></div>
-        </div>
+        <div class="cyrcle-center"><div class="radial-cyrcle"></div></div>
     </noscript>
 </div>
 
-<template>
-    <div class="text-class">
-        <div class="text-container">
-            <div class="text-content-fluid" id="chinese-text" data-text-type="chinese">
-                <div class="chinese-text">設</div>
-                <div class="chinese-text2">計</div>
-                <div class="chinese-text3">和</div>
-                <div class="chinese-text4">開</div>
-                <div class="chinese-text5">發</div>
-            </div>
-        </div>
-    </div>
-</template>
-
-<div class="dropdown" id="anotherFunction">
-    <div class="drop1">HTML</div>
-    <div class="drop2">CSS</div>
-    <div class="drop3">Javascript</div>
-    <div class="drop4">Sass</div>
-</div>
+<!-- 2. Main Content Area -->
 <div class="container-view">
-    <header>
-        <h1>Weather & Diseases Education Page</h1>
+    <header class="page-header">
+        <h1>Weather & Diseases Education</h1>
         <p>Learn how different weather conditions can affect your health, and how to stay safe.</p>
     </header>
 
+    <!-- HOT WEATHER -->
     <section class="weather-section">
         <h2>🔥 Hot Weather (Around 30°C - 40°C)</h2>
+
         <div class="card">
             <h3>1. Heat Stroke</h3>
-            <p class="symptoms">Symptoms: High fever, confusion, dizziness, rapid heartbeat.</p>
+            <img class="card-image" src="https://media.istockphoto.com/id/1396435926/vector/young-man-at-outdoor-with-hot-temperature-concept-of-exhausted-sunburn-summer-day-high.jpg?s=612x612&w=0&k=20&c=ANs4dx1YdCzHdEFmY-U3MQfUC1BZL-KNi5qarlYhCnY=" alt="Heat stroke illustration">
+            <p class="symptoms">🌡 High fever | 😵 Confusion | 🌀 Dizziness | ❤️ Rapid heartbeat.</p>
             <p><strong>Tips:</strong> Stay hydrated, avoid staying under direct sunlight for long, wear light clothes.</p>
-            <p><strong>First Aid:</strong> Move the person to a cooler place, apply cold compress, give water if conscious, seek medical help immediately.</p>
+            <p class="first-aid-tip"><span class="first-aid-label">First Aid:</span> Move the person to a cooler place, apply cold compress, give water if conscious, seek medical help immediately.</p>
         </div>
 
         <div class="card">
             <h3>2. Dehydration</h3>
-            <p class="symptoms">Symptoms: Dry mouth, headache, dark urine, dizziness.</p>
+
+            <p class="symptoms">💧 Dry mouth | 🤕 Headache | 🚽 Dark urine | 💫 Dizziness.</p>
             <p><strong>Tips:</strong> Drink plenty of water, avoid too much physical activity outdoors during peak heat.</p>
-            <p><strong>First Aid:</strong> Let the person rest, give water or electrolyte drink.</p>
+            <p class="first-aid-tip"><span class="first-aid-label">First Aid:</span> Let the person rest, give water or electrolyte drink.</p>
         </div>
 
         <div class="card">
             <h3>3. Skin Rashes / Prickly Heat</h3>
-            <p class="symptoms">Symptoms: Red itchy bumps, stinging sensation.</p>
+            <img class="card-image" src="https://cdn.prod.website-files.com/5ee7039040ea6efb80d7521c/63eb3dc90266ed57372992a0_shutterstock_1226703208.jpg" alt="Skin rash">
+            <p class="symptoms">🔴 Red itchy bumps | 🌶️ Stinging sensation.</p>
             <p><strong>Tips:</strong> Take cool showers, wear loose clothing.</p>
-            <p><strong>First Aid:</strong> Apply cool compress and soothing lotion.</p>
+            <p class="first-aid-tip"><span class="first-aid-label">First Aid:</span> Apply cool compress and soothing lotion.</p>
         </div>
     </section>
 
+    <!-- RAINY WEATHER -->
     <section class="weather-section">
         <h2>🌧 Rainy Weather (Around 24°C - 30°C)</h2>
+
         <div class="card">
             <h3>1. Dengue Fever</h3>
-            <p class="symptoms">Symptoms: High fever, severe headache, joint pain, rashes.</p>
+            <img class="card-image" src="https://img.freepik.com/premium-vector/cartoon-dengue-mosquito-biting-drinking-blood-from-hand-thin-soft-blue-background_17893-64.jpg" alt="Mosquito biting hand">
+            <p class="symptoms">🤒 High fever | 🤯 Severe headache | 🦵 Joint pain | 🔴 Rashes.</p>
             <p><strong>Tips:</strong> Avoid stagnant water, use mosquito repellents.</p>
-            <p><strong>First Aid:</strong> Give fluids, rest, and seek medical attention.</p>
+            <p class="first-aid-tip"><span class="first-aid-label">First Aid:</span> Give fluids, rest, and seek medical attention.</p>
         </div>
 
         <div class="card">
             <h3>2. Leptospirosis</h3>
-            <p class="symptoms">Symptoms: Fever, muscle pain, headache, yellow skin.</p>
+            <img class="card-image" src="https://static.vecteezy.com/system/resources/thumbnails/050/769/105/small_2x/leptospirosis-infection-disease-from-leptospira-bacteria-in-rat-urine-vector.jpg" alt="Rat and floodwater">
+            <p class="symptoms">🌡️ Fever | 💪 Muscle pain | 🤕 Headache | 🟡 Yellow skin (Jaundice).</p>
             <p><strong>Tips:</strong> Avoid walking in flood water, wear boots if necessary.</p>
-            <p><strong>First Aid:</strong> Wash exposed skin with soap, seek medical treatment quickly.</p>
+            <p class="first-aid-tip"><span class="first-aid-label">First Aid:</span> Wash exposed skin with soap, seek medical treatment quickly.</p>
         </div>
 
         <div class="card">
             <h3>3. Colds & Flu</h3>
-            <p class="symptoms">Symptoms: Runny nose, fever, cough, body aches.</p>
+            <img class="card-image" src="https://www.shutterstock.com/image-vector/woman-sneezing-handkerchief-sick-young-600nw-2513606721.jpg" alt="Sneezing illustration">
+            <p class="symptoms">🤧 Runny nose | 🤒 Fever | 🗣️ Cough | 😫 Body aches.</p>
             <p><strong>Tips:</strong> Strengthen your immune system, avoid getting soaked in the rain.</p>
-            <p><strong>First Aid:</strong> Rest, warm fluids, paracetamol for fever.</p>
+            <p class="first-aid-tip"><span class="first-aid-label">First Aid:</span> Rest, warm fluids, paracetamol for fever.</p>
         </div>
     </section>
 
+    <!-- COLD WEATHER -->
     <section class="weather-section">
         <h2>❄ Cold Weather (Around 18°C - 24°C)</h2>
+
         <div class="card">
             <h3>1. Hypothermia</h3>
-            <p class="symptoms">Symptoms: Shivering, slurred speech, weak pulse.</p>
+            <img class="card-image" src="https://www.shutterstock.com/image-vector/freezing-boy-suffering-cold-weather-600nw-2239400761.jpg" alt="Freezing boy">
+            <p class="symptoms">🥶 Shivering | 🗣️ Slurred speech | 💖 Weak pulse.</p>
             <p><strong>Tips:</strong> Wear warm clothes, avoid staying outside too long.</p>
-            <p><strong>First Aid:</strong> Move to a warm place, wrap in blankets, give warm drinks.</p>
+            <p class="first-aid-tip"><span class="first-aid-label">First Aid:</span> Move to a warm place, wrap in blankets, give warm drinks.</p>
         </div>
 
         <div class="card">
             <h3>2. Asthma Attacks</h3>
-            <p class="symptoms">Symptoms: Difficulty breathing, coughing, wheezing.</p>
+            <img class="card-image" src="https://img.freepik.com/premium-vector/vector-illustration-bronchial-asthma-cartoon-scene-with-guy-doing-inhalation-against-bronchial-asthma-allergic-attack-isolated-white-background-world-asthma-allergy-day_812561-777.jpg" alt="Asthma inhaler">
+            <p class="symptoms">😮‍💨 Difficulty breathing | 🗣️ Coughing | 💨 Wheezing.</p>
             <p><strong>Tips:</strong> Avoid cold air exposure, wear masks or scarves.</p>
-            <p><strong>First Aid:</strong> Use inhaler and stay calm.</p>
+            <p class="first-aid-tip"><span class="first-aid-label">First Aid:</span> Use inhaler and stay calm.</p>
         </div>
 
         <div class="card">
             <h3>3. Pneumonia</h3>
-            <p class="symptoms">Symptoms: Cough with phlegm, fever, chills, chest pain.</p>
+            <img class="card-image" src="https://media.istockphoto.com/id/2185161973/vector/illustration-of-an-elderly-man-with-pneumonia.jpg?s=612x612&w=0&k=20&c=w-EFyKjAGzXUMF8MBOUjhi7NA3bigjysfZAiRuiLkI8=" alt="Pneumonia illustration">
+            <p class="symptoms">🤢 Cough with phlegm | 🌡️ Fever | 🥶 Chills | 🩹 Chest pain.</p>
             <p><strong>Tips:</strong> Keep warm, stay dry, boost immune system.</p>
-            <p><strong>First Aid:</strong> Seek medical care; rest and fluids.</p>
+            <p class="first-aid-tip"><span class="first-aid-label">First Aid:</span> Seek medical care; rest and fluids.</p>
         </div>
     </section>
 
+    <!-- HUMID WEATHER -->
     <section class="weather-section">
         <h2>💧 Humid Weather (Above 70% Humidity)</h2>
+
         <div class="card">
             <h3>1. Fungal Skin Infections</h3>
-            <p class="symptoms">Symptoms: Itchy patches, redness, peeling skin.</p>
+            <img class="card-image" src="https://ramskinclinic.in/wp-content/uploads/2013/08/Fungal-Infection-Treatment.jpg" alt="Skin infection">
+            <p class="symptoms">🤏 Itchy patches | 🔴 Redness | 🧴 Peeling skin.</p>
             <p><strong>Tips:</strong> Keep skin dry, avoid tight clothing.</p>
-            <p><strong>First Aid:</strong> Use antifungal creams.</p>
-        </div>
-
-        <div class="card">
-            <h3>2. Heat Exhaustion</h3>
-            <p class="symptoms">Symptoms: Heavy sweating, dizziness, nausea.</p>
-            <p><strong>Tips:</strong> Stay hydrated, avoid physical exertion.</p>
-            <p><strong>First Aid:</strong> Move to a cool place, drink water.</p>
-        </div>
-
-        <div class="card">
-            <h3>3. Respiratory Problems</h3>
-            <p class="symptoms">Symptoms: Difficulty breathing, cough, wheezing.</p>
-            <p><strong>Tips:</strong> Keep indoor air clean, avoid pollution.</p>
-            <p><strong>First Aid:</strong> Rest, inhale steam, consult a doctor.</p>
+            <p class="first-aid-tip"><span class="first-aid-label">First Aid:</span> Use an *antifungal cream or powder*; consult a doctor if it doesn't improve.</p>
         </div>
     </section>
 
     <footer>
-        <p>© 2025 Weather & Health Education</p>
+        &copy; 2025 HealthCAST. All rights reserved.
     </footer>
 </div>
 

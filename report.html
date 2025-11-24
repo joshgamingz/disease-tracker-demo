@@ -1,168 +1,162 @@
 <html>
 <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="style.css">
+    <title>Submit Case Report</title>
     <style>
-        /* --- Assuming you have this style already --- */
+        /* Updated fonts to match Home.html content */
         body {
-            background-color: #0a192f; /* Example: A dark navy/blue */
-            font-family: 'Quicksand', sans-serif;
-            color: #F0F0F0; /* Light text color for the dark background */
+            background-color: #0a192f;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #F0F0F0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             padding: 2rem;
         }
-        /* ------------------------------------------- */
 
         #report-form {
-            background-color: #172a46; /* A slightly lighter blue for the form */
+            background-color: #172a46;
             border-radius: 10px;
             padding: 2.5rem;
             width: 100%;
             max-width: 500px;
             box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 217, 0, 0.2); /* Subtle dandelion-yellow border */
+            border: 1px solid rgba(255, 217, 0, 0.2);
+            margin-top: 100px;
         }
 
-        #report-form h3 {
-            color: #FFD900; /* Dandelion-yellow for the title */
-            text-align: center;
-            margin-top: 0;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
+        #report-form h3 { color: #FFD900; text-align: center; margin-bottom: 20px;}
+        #report-form label { display: block; margin-top: 1rem; color: #ccd6f6; }
 
-        #report-form label {
-            display: block;
-            margin-top: 1.5rem;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: #ccd6f6; /* Light text, but not pure white */
-        }
-
-        #report-form input[type="number"],
-        #report-form select {
+        #report-form input, #report-form select {
             width: 100%;
             padding: 12px;
-            border: 1px solid #304a6e; /* Darker border */
+            margin-top: 5px;
+            border: 1px solid #304a6e;
             border-radius: 5px;
-            background-color: #0a192f; /* Match the very-dark-blue */
-            color: #F0F0F0; /* Light text for typing */
-            font-family: 'Quicksand', sans-serif;
-            font-size: 1rem;
-            box-sizing: border-box; /* Ensures padding doesn't break layout */
+            background-color: #0a192f;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* --- Style the dropdown arrow --- */
-        #report-form select {
-            appearance: none;
-            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23FFD900%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-13%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2013l128%20128c3.6%203.6%207.8%205.4%2013%205.4s9.4-1.8%2013-5.4l128-128c3.6-3.6%205.4-7.8%205.4-13%200-4.8-1.8-9.2-5.4-12.8z%22%2F%3E%3C%2Fsvg%3E');
-            background-repeat: no-repeat;
-            background-position: right 12px top 50%;
-            background-size: .65em auto;
-        }
-
-        /* --- Focus ring for accessibility --- */
-        #report-form input[type="number"]:focus,
-        #report-form select:focus {
-            outline: none;
-            border-color: #FFD900; /* Dandelion-yellow focus */
-            box-shadow: 0 0 5px rgba(255, 217, 0, 0.5);
-        }
-
-        #report-form button[type="submit"] {
+        #report-form button {
             width: 100%;
             padding: 14px;
             margin-top: 2rem;
-            background-color: #FFD900; /* Dandelion-yellow button */
-            color: #172a46; /* Dark blue text on button for contrast */
+            background-color: #FFD900;
+            color: #172a46;
             border: none;
             border-radius: 5px;
-            font-family: 'Quicksand', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 700;
+            font-weight: bold;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.1s ease;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+        #report-form button:hover { background-color: #ffee7a; }
 
-        #report-form button[type="submit"]:hover {
-            background-color: #ffee7a; /* A lighter yellow on hover */
-        }
-
-        #report-form button[type="submit"]:active {
-            transform: scale(0.99); /* Slight click effect */
-        }
-
+        .navigation { top: 30px; }
     </style>
 </head>
 
 <body>
-<form id="report-form">
-    <h3>Submit a New Case</h3>
+<!-- Nav -->
+<div class="navigation">
+    <nav>
+        <ul class="nav-type">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="index.html">Map</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="report.html" class="active2">Forms</a></li>
+            <li><a href="education.html">Education</a></li>
+        </ul>
+    </nav>
+</div>
 
-    <label for="location">Location:</label>
-    <select id="location">
+<form id="report-form">
+    <h3>Update District Data *FOR DATA MANAGER ACCESS ONLY*</h3>
+
+    <label>City:</label>
+    <select id="city-select" onchange="updateDistricts()">
         <option value="Quezon City">Quezon City</option>
         <option value="Manila">Manila</option>
     </select>
 
-    <label for="disease">Disease:</label>
-    <select id="disease">
-        <option value="Dengue">Dengue</option>
-        <option value="Leptospirosis">Leptospirosis</option>
+    <label>District:</label>
+    <select id="district-select">
+        <!-- Options populated by JS -->
     </select>
 
-    <label for="cases">Number of Cases:</label>
-    <input type="number" id="cases" min="0" placeholder="Enter a number" required>
+    <label>Disease:</label>
+    <select id="disease">
+        <option value="dengue">Dengue</option>
+        <option value="lepto">Leptospirosis</option>
+        <option value="influenza">Influenza</option>
+    </select>
 
-    <button type="submit">Submit Report</button>
+    <label>Number of Cases (Active):</label>
+    <input type="number" id="cases" min="0" placeholder="e.g. 15" required>
+
+    <button type="submit">Update Data</button>
 </form>
 
 <script>
+    // District Logic
+    function updateDistricts() {
+        const city = document.getElementById('city-select').value;
+        const districtSelect = document.getElementById('district-select');
+        districtSelect.innerHTML = ""; // Clear existing
+
+        // Create 6 districts
+        for(let i=1; i<=6; i++) {
+            let opt = document.createElement('option');
+            if(city === "Quezon City") {
+                opt.value = "d" + i; // matches JSON id: d1, d2...
+                opt.innerHTML = "District " + i;
+            } else {
+                opt.value = "mnld" + i; // matches JSON id: mnld1, mnld2...
+                opt.innerHTML = "District " + i;
+            }
+            districtSelect.appendChild(opt);
+        }
+    }
+
+    // Run once on load
+    updateDistricts();
+
+    // Submit Logic
     const form = document.getElementById('report-form');
 
     form.addEventListener('submit', (e) => {
-        e.preventDefault(); // This stops the page from refreshing
+        e.preventDefault();
 
-        // Get the values from the form
-        const locationName = document.getElementById('location').value;
+        const city = document.getElementById('city-select').value;
+        const districtId = document.getElementById('district-select').value;
         const disease = document.getElementById('disease').value;
         const cases = parseInt(document.getElementById('cases').value);
 
-        // Match location name to coordinates
-        let lat = 0, lng = 0;
-        if (locationName === "Quezon City") {
-            lat = 14.6760; lng = 121.0437;
-        } else if (locationName === "Manila") {
-            lat = 14.5995; lng = 120.9842;
-        }
-
-        // Create the data object to send
-        const newReport = {
-            location_name: locationName,
-            lat: lat,
-            lng: lng,
-            disease: disease,
-            cases: cases,
-            date: new Date().toISOString().split('T')[0] // Today's date
-        };
-
-        // Send the data to Member 2's server
-        fetch('http://localhost:3000/add-case', {
+        // Send to our local Node.js server
+        fetch('http://localhost:3000/update-case', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newReport)
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                id: districtId,
+                disease: disease,
+                count: cases
+            })
         })
             .then(response => response.json())
             .then(data => {
-                alert(data.message); // Show "Case added successfully!"
-                form.reset(); // Clear the form
+                if(data.success) {
+                    alert(`SUCCESS! Data updated in JSON file.\n\n${city} (${districtId})\n${disease}: ${cases}`);
+                    form.reset();
+                    updateDistricts();
+                } else {
+                    alert("Error updating data.");
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Could not connect to server. Make sure you ran 'node server.js'");
             });
     });
 </script>
